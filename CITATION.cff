@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use BidReader in your work, please cite it."
+title: "BidReader: structured extraction and scope-gap detection from construction bid documents"
+abstract: >-
+  An MIT-licensed Python library, CLI, and MCP server that reads construction
+  sub-quotes, bid packages, and spec PDFs into clean, page-cited structured data
+  and flags scope gaps and exclusions buried in vendor fine print.
+type: software
+authors:
+  - given-names: Anmol
+    email: anmol@attentive.ai
+license: MIT
+repository-code: "https://github.com/anmolsam/bidreader"
+url: "https://pypi.org/project/bidreader/"
+keywords:
+  - construction
+  - estimating
+  - takeoff
+  - subcontractor
+  - bid
+  - scope
+  - exclusions
+  - document-extraction
+  - LLM
+  - MCP
+version: "0.3.0"
+date-released: "2026-06-17"

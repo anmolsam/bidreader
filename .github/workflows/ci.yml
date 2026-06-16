@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install (with extras)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[mcp,tables]"
+      - name: Import + CLI smoke (no network)
+        run: |
+          python -c "import bidreader; print('bidreader', bidreader.__version__)"
+          python -c "from bidreader.extract import _chunk, _merge, _page_blocks; print('internals import OK')"
+          python -c "from bidreader.mcp_server import mcp; print('mcp server import OK')"
+          bidreader || true   # prints usage, exits non-zero by design
+      - name: Build distribution
+        run: |
+          pip install build twine
+          python -m build
+          twine check dist/*

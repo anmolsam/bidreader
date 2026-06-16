@@ -36,13 +36,26 @@ Rules: exclusions are CRITICAL — hunt everywhere, including fine print, footno
 For scope_gaps, infer trade-standard scope a vendor commonly omits that is NOT mentioned in this doc."""
 
 
-def _page_text(doc):
-    parts = []
+def _page_blocks(doc):
+    out = []
     for i, p in enumerate(doc):
         t = p.get_text().strip()
         if t:
-            parts.append(f"[PAGE {i+1}]\n{t}")
-    return "\n\n".join(parts)
+            out.append(f"[PAGE {i+1}]\n{t}")
+    return out
+
+
+def _chunk(blocks, budget=42000):
+    """Group page-blocks into chunks under a char budget so the model's JSON
+    output never overflows on large multi-page estimates."""
+    chunks, cur, n = [], [], 0
+    for b in blocks:
+        if cur and n + len(b) > budget:
+            chunks.append("\n\n".join(cur)); cur, n = [], 0
+        cur.append(b); n += len(b)
+    if cur:
+        chunks.append("\n\n".join(cur))
+    return chunks
 
 
 def _llm(text):
@@ -85,13 +98,40 @@ class Doc(dict):
     def to_json(self, **kw): return json.dumps(self, indent=2, **kw)
 
 
+def _merge(parts):
+    out = {"doc_type": None, "vendor": None, "project": None, "trade": None,
+           "currency": None, "bid_total": None, "line_items": [], "exclusions": [],
+           "assumptions": [], "alternates": [], "scope_gaps": [], "notes": None}
+    seen_gap = set()
+    totals = []
+    for d in parts:
+        for k in ("doc_type", "vendor", "project", "trade", "currency", "notes"):
+            if not out[k] and d.get(k):
+                out[k] = d[k]
+        if isinstance(d.get("bid_total"), (int, float)):
+            totals.append(d["bid_total"])
+        for k in ("line_items", "exclusions", "assumptions", "alternates"):
+            out[k].extend(d.get(k) or [])
+        for g in d.get("scope_gaps") or []:
+            key = (g.get("missing") or "").strip().lower()
+            if key and key not in seen_gap:
+                seen_gap.add(key); out["scope_gaps"].append(g)
+    out["bid_total"] = max(totals) if totals else None   # grand total > subtotals
+    return out
+
+
 def read(path: str) -> Doc:
-    """Read a construction PDF into structured, page-cited data."""
+    """Read a construction PDF into structured, page-cited data.
+
+    Large multi-page estimates are chunked by page and merged, so the model's
+    JSON output never truncates."""
     doc = fitz.open(path)
-    text = _page_text(doc)
-    if len(text) < 40:
+    blocks = _page_blocks(doc)
+    if sum(len(b) for b in blocks) < 40:
         raise RuntimeError("No extractable text (scanned PDF) — vision OCR path TODO.")
-    data = _llm(text)
+    chunks = _chunk(blocks)
+    data = _merge([_llm(c) for c in chunks])
     data["_source"] = path.split("/")[-1]
     data["_pages"] = doc.page_count
+    data["_chunks"] = len(chunks)
     return Doc(data)
