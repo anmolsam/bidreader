@@ -57,6 +57,26 @@ The construction-AI gold rush is all building the same crowded, resisted thing �
 - **Provider-agnostic** — Requesty, OpenRouter, or Google AI Studio (free tier).
 - **Cited** — every number traces to a page + the exact source text. Trust is the real adoption blocker; this is built for it.
 
+## Use it from an AI agent (MCP)
+
+Any MCP client — Claude Desktop, Cursor, etc. — can call BidReader:
+
+```bash
+pip install "bidreader[mcp]"
+```
+```json
+{
+  "mcpServers": {
+    "bidreader": {
+      "command": "bidreader-mcp",
+      "env": { "REQUESTY_API_KEY": "rqsty-..." }
+    }
+  }
+}
+```
+Tools exposed: `read_document(path)`, `catch_exclusions(path)`, `extract_line_items(path)`.
+Now your agent can answer *"which subs excluded fire-stopping?"* across a bid folder.
+
 ## Roadmap
 - Scanned-PDF vision OCR path · revision/addendum **diff** ("what changed between Addendum 3 and 4") · `bidreader-mcp` server (any agent can call it) · Excel/CSV export · multi-quote leveling (compare subs side-by-side).
 
