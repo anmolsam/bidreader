@@ -1,0 +1,41 @@
+{
+  "id": "spec_prose_exclusions",
+  "doc_type": "spec section",
+  "vendor": "Apex Roofing Co",
+  "trade": "Roofing",
+  "bid_total": 205100.0,
+  "line_items": [
+    {
+      "section": "07 54 23",
+      "description": "TPO membrane fully adhered 60 mil",
+      "qty": 22000,
+      "unit": "SF",
+      "unit_price": 6.1,
+      "amount": 134200.0
+    },
+    {
+      "section": "07 22 00",
+      "description": "Polyiso roof insulation R-30",
+      "qty": 22000,
+      "unit": "SF",
+      "unit_price": 2.3,
+      "amount": 50600.0
+    },
+    {
+      "section": "07 62 00",
+      "description": "Sheet metal flashing and trim",
+      "qty": 1450,
+      "unit": "LF",
+      "unit_price": 14.0,
+      "amount": 20300.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "wood blocking",
+    "structural deck repair",
+    "interior finishes"
+  ],
+  "expect_exclusions_min": 3,
+  "expect_exclusions_max": null
+}

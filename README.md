@@ -85,6 +85,20 @@ PDF (sub-quote / bid package / spec / schedule)
 
 Text-based, so it runs great on **free** models — see [docs/FREE_MODELS.md](docs/FREE_MODELS.md).
 
+## Benchmark
+
+Reproducible ground-truth benchmark ([`benchmark/`](benchmark/)) — synthetic docs we author, so truth is exact and the PDFs ship in-repo:
+
+| metric | score |
+|---|---|
+| Line-item recall | **100%** |
+| Exclusion-catch recall (incl. prose-buried) | **100%** |
+| No-hallucination rate (clean docs) | **100%** |
+| Bid-total accuracy (±2%) | **100%** |
+| Arithmetic errors caught | **2/2**, 0 false positives |
+
+Honest caveat: synthetic docs are cleaner than real scans — these are an **upper bound** on well-structured input, not a claim about messy real bids. Uncontrolled real-document results are in [docs/RESULTS.md](docs/RESULTS.md). Reproduce: `python benchmark/generate.py && python benchmark/run.py`.
+
 ## Why this, and why now — the evidence
 
 A full write-up (problem, market data, prior-art gap, method, results) is in **[PAPER.md](PAPER.md)**. The short version:

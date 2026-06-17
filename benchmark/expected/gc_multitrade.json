@@ -1,0 +1,80 @@
+{
+  "id": "gc_multitrade",
+  "doc_type": "bid package",
+  "vendor": "Bedrock General Contractors",
+  "trade": "General",
+  "bid_total": 536510.0,
+  "line_items": [
+    {
+      "section": "01 00 00",
+      "description": "General conditions and supervision",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 48000.0,
+      "amount": 48000.0
+    },
+    {
+      "section": "02 41 00",
+      "description": "Selective demolition interior",
+      "qty": 6200,
+      "unit": "SF",
+      "unit_price": 3.1,
+      "amount": 19220.0
+    },
+    {
+      "section": "03 30 00",
+      "description": "Cast-in-place concrete slab on grade",
+      "qty": 310,
+      "unit": "CY",
+      "unit_price": 165.0,
+      "amount": 51150.0
+    },
+    {
+      "section": "05 12 00",
+      "description": "Structural steel columns and beams",
+      "qty": 42,
+      "unit": "TON",
+      "unit_price": 2850.0,
+      "amount": 119700.0
+    },
+    {
+      "section": "07 54 00",
+      "description": "TPO roofing 60 mil",
+      "qty": 18500,
+      "unit": "SF",
+      "unit_price": 6.4,
+      "amount": 118400.0
+    },
+    {
+      "section": "08 11 00",
+      "description": "Hollow metal doors and frames",
+      "qty": 36,
+      "unit": "EA",
+      "unit_price": 900.0,
+      "amount": 32400.0
+    },
+    {
+      "section": "09 51 00",
+      "description": "Acoustical ceiling 2x4 grid and tile",
+      "qty": 14200,
+      "unit": "SF",
+      "unit_price": 4.2,
+      "amount": 59640.0
+    },
+    {
+      "section": "22 00 00",
+      "description": "Plumbing rough-in and fixtures",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 88000.0,
+      "amount": 88000.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "hazardous material",
+    "permit"
+  ],
+  "expect_exclusions_min": 2,
+  "expect_exclusions_max": null
+}

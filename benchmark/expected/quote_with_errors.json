@@ -1,0 +1,51 @@
+{
+  "id": "quote_with_errors",
+  "doc_type": "sub-quote",
+  "vendor": "Lowball Electric Inc",
+  "trade": "Electrical",
+  "bid_total": 60400.0,
+  "line_items": [
+    {
+      "section": "26 05 19",
+      "description": "Branch circuit wiring THHN",
+      "qty": 8400,
+      "unit": "LF",
+      "unit_price": 1.2,
+      "amount": 10080.0
+    },
+    {
+      "section": "26 51 00",
+      "description": "LED 2x4 troffer fixtures",
+      "qty": 220,
+      "unit": "EA",
+      "unit_price": 145.0,
+      "amount": 25900.0
+    },
+    {
+      "section": "26 27 26",
+      "description": "Wiring devices and plates",
+      "qty": 540,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 9720.0
+    },
+    {
+      "section": "26 24 16",
+      "description": "Panelboards 42-circuit",
+      "qty": 6,
+      "unit": "EA",
+      "unit_price": 2100.0,
+      "amount": 14700.0
+    }
+  ],
+  "math_error_idx": [
+    1,
+    3
+  ],
+  "exclusion_keys": [
+    "fire alarm",
+    "low voltage"
+  ],
+  "expect_exclusions_min": 2,
+  "expect_exclusions_max": null
+}

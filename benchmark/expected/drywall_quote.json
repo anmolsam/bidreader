@@ -1,0 +1,57 @@
+{
+  "id": "drywall_quote",
+  "doc_type": "sub-quote",
+  "vendor": "Acme Drywall & Framing LLC",
+  "trade": "Drywall",
+  "bid_total": 121628.0,
+  "line_items": [
+    {
+      "section": "09 22 16",
+      "description": "Metal stud framing 3-5/8in 25ga",
+      "qty": 12400,
+      "unit": "SF",
+      "unit_price": 2.85,
+      "amount": 35340.0
+    },
+    {
+      "section": "09 29 00",
+      "description": "5/8in Type X gypsum board both faces",
+      "qty": 24800,
+      "unit": "SF",
+      "unit_price": 1.65,
+      "amount": 40920.0
+    },
+    {
+      "section": "09 29 00",
+      "description": "Tape and finish Level 4",
+      "qty": 24800,
+      "unit": "SF",
+      "unit_price": 0.95,
+      "amount": 23560.0
+    },
+    {
+      "section": "09 81 00",
+      "description": "Acoustic insulation R-13 batts",
+      "qty": 12400,
+      "unit": "SF",
+      "unit_price": 0.72,
+      "amount": 8928.0
+    },
+    {
+      "section": "09 22 16",
+      "description": "Ceiling suspension grid framing",
+      "qty": 9200,
+      "unit": "SF",
+      "unit_price": 1.4,
+      "amount": 12880.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "fire-stopping",
+    "scaffolding",
+    "debris"
+  ],
+  "expect_exclusions_min": 3,
+  "expect_exclusions_max": null
+}

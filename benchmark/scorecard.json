@@ -1,0 +1,89 @@
+{
+  "aggregate": {
+    "cases": 5,
+    "line_item_recall": 1.0,
+    "exclusion_recall": 1.0,
+    "no_hallucination_rate": 1.0,
+    "bid_total_accuracy": 1.0,
+    "math_errors_planted": 2,
+    "math_errors_caught": 2,
+    "math_false_positives": 0
+  },
+  "per_case": {
+    "clean_no_exclusions": {
+      "line_item_recall": 1.0,
+      "line_items_found": 3,
+      "line_items_expected": 3,
+      "exclusion_recall": 1.0,
+      "exclusions_found": 0,
+      "exclusions_expected": 0,
+      "no_hallucination": true,
+      "bid_total_ok": true,
+      "math": {
+        "planted": 0,
+        "caught": 0,
+        "false_positive": 0
+      }
+    },
+    "drywall_quote": {
+      "line_item_recall": 1.0,
+      "line_items_found": 5,
+      "line_items_expected": 5,
+      "exclusion_recall": 1.0,
+      "exclusions_found": 3,
+      "exclusions_expected": 3,
+      "no_hallucination": true,
+      "bid_total_ok": true,
+      "math": {
+        "planted": 0,
+        "caught": 0,
+        "false_positive": 0
+      }
+    },
+    "gc_multitrade": {
+      "line_item_recall": 1.0,
+      "line_items_found": 8,
+      "line_items_expected": 8,
+      "exclusion_recall": 1.0,
+      "exclusions_found": 2,
+      "exclusions_expected": 2,
+      "no_hallucination": true,
+      "bid_total_ok": true,
+      "math": {
+        "planted": 0,
+        "caught": 0,
+        "false_positive": 0
+      }
+    },
+    "quote_with_errors": {
+      "line_item_recall": 1.0,
+      "line_items_found": 4,
+      "line_items_expected": 4,
+      "exclusion_recall": 1.0,
+      "exclusions_found": 2,
+      "exclusions_expected": 2,
+      "no_hallucination": true,
+      "bid_total_ok": true,
+      "math": {
+        "planted": 2,
+        "caught": 2,
+        "false_positive": 0
+      }
+    },
+    "spec_prose_exclusions": {
+      "line_item_recall": 1.0,
+      "line_items_found": 3,
+      "line_items_expected": 3,
+      "exclusion_recall": 1.0,
+      "exclusions_found": 3,
+      "exclusions_expected": 3,
+      "no_hallucination": true,
+      "bid_total_ok": true,
+      "math": {
+        "planted": 0,
+        "caught": 0,
+        "false_positive": 0
+      }
+    }
+  }
+}

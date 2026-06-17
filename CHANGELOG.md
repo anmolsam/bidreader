@@ -3,6 +3,15 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.5.0] - 2026-06-17
+### Added
+- **Reproducible ground-truth benchmark** (`benchmark/`): 5 synthetic, freely-
+  redistributable documents with committed expected outputs + a scorer
+  (`generate.py`, `run.py`, `SCORECARD.md`). Measures line-item recall,
+  exclusion-catch recall, no-hallucination rate, bid-total accuracy, and
+  arithmetic-error detection. Current: 100% on all extraction metrics, 2/2
+  planted arithmetic errors caught with 0 false positives (synthetic = upper bound).
+
 ## [0.4.0] - 2026-06-17
 ### Added
 - **Verified evidence per line item**: `source_text` (exact printed line) so the
