@@ -34,18 +34,21 @@ BidReader run on **14 real, publicly-published** construction bid/estimate PDFs 
 
 _Real third-party documents (cited, not redistributed). Printed-total reconciliation is an objective real-world signal; it is not a substitute for estimator-labeled line-item ground truth. Outputs are proposals to verify._
 
-## Honest interpretation
+## Reconciliation failure audit (what "6/14" actually means)
 
-- **Ingestion is now robust:** 14/14 real docs parsed with **0 crashes** (5 of these
-  hard-failed on JSON errors before the v0.8.2 per-chunk resilience fix). Extraction
-  scaled to **4,196 line items** across the set (e.g. 1,282 from a 19pp multifamily
-  estimate, 885 from a 25pp GC sample).
-- **Total reconciliation is ~43% (6/14)** — and that number is limited as much by the
-  crude printed-total *heuristic* as by extraction. Two failure modes dominate:
-  (a) docs with **no single grand total** (line-item-only estimates) where extracted
-  total is null; (b) the regex grabbing the **wrong "$" as the total** (e.g. a subtotal
-  or unit price). The line items themselves extracted fine in most of these.
-- **Takeaway:** on real, varied bids BidReader reliably *ingests and extracts*; a
-  trustworthy *grand-total* needs better total-detection (sum line items / detect the
-  summary line), and multi-bidder DOT unit-price tabs are a separate doc class (excluded
-  here, noted). This is the honest real-world state — not the 100% of the synthetic set.
+The blunt `6/14` mixes three different things. Audited per-doc, the breakdown is:
+
+| category | count | what it is |
+|---|---|---|
+| ✅ **Reconciled exactly** | 6 | extracted grand total == the document's printed total |
+| **Evaluator heuristic grabbed wrong $** | 2 | extraction fine; this eval's `printed_total()` regex picked a subtotal/wrong figure (`16_ace`, `25_ace`). **Not a product failure.** |
+| **No single grand total in source** | 4 | line-item-only estimates/tabs (`04_federal` 885 items, `14_mep` 582, `15_plumbing` 243, `21_ccsd15` scanned 44) — items extracted fine; the doc prints no one grand-total line, so `bid_total` is null |
+| **N/A** | 1 | `20_etsu` is a 1-page SOV with nothing to price |
+| **True BidReader total error** | **1** | `08_bids`: $426,166 vs $477,050 (~11% off — investigate) |
+
+So the honest headline is **not** "57% wrong":
+- **14/14 parsed, 0 crashes, 4,196 line items extracted.**
+- Of docs with a detectable single grand total: **6 reconciled, 1 true product miss.**
+- **2** misses are this evaluator's heuristic; **4** are docs with no grand-total line; **1** N/A.
+
+**The real product gap is grand-total *detection*** (sum the line items / find the summary line) — not extraction, which works on real, varied bids. Multi-bidder DOT unit-price tabs are a separate doc class (excluded, noted). This is the honest real-world state — not the synthetic set's 100%.
