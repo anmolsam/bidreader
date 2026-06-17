@@ -3,6 +3,14 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.8.1] - 2026-06-17
+### Fixed
+- **MCP private mode**: MCP tools no longer require a cloud key — they accept any
+  configured backend, including local Ollama (bids stay local over MCP too).
+  Previously `_check_key()` rejected Ollama-only configs.
+- README roadmap updated to reflect shipped features (leveling, local mode, OCR)
+  instead of listing them as unchecked.
+
 ## [0.8.0] - 2026-06-17
 ### Added
 - **Scanned-PDF OCR** (`bidreader/ocr.py`): scanned / image-only PDFs are

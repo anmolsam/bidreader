@@ -17,9 +17,10 @@ mcp = FastMCP("bidreader")
 
 
 def _check_key():
-    if not (os.environ.get("REQUESTY_API_KEY") or os.environ.get("OPENROUTER_API_KEY")
-            or os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")):
-        raise RuntimeError("No LLM key in env (REQUESTY_API_KEY / OPENROUTER_API_KEY / GEMINI_API_KEY).")
+    # Accepts ANY configured backend, including local Ollama (no key) — so the
+    # private-mode story works over MCP. Raises only if nothing is configured.
+    from .extract import _select_backend
+    _select_backend()
 
 
 @mcp.tool()

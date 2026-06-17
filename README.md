@@ -156,9 +156,12 @@ A full write-up (problem, market data, prior-art gap, method, results) is in **[
 
 ## Roadmap
 
-- [ ] Scanned-PDF vision OCR path
+- [x] Multi-quote **leveling** → Excel (compare subs side-by-side) — v0.6
+- [x] Fully-local / private mode via **Ollama** — v0.7
+- [x] **Scanned-PDF OCR** (local Tesseract) — v0.8
+- [ ] Source-grounded **click-back review UI** (data already carries `source_text`)
 - [ ] Revision/addendum **diff** ("what changed between Addendum 3 and 4")
-- [ ] Excel/CSV BOQ export + multi-quote **leveling** (compare subs side-by-side)
+- [ ] CSI/UNIFORMAT mapping + UOM normalization for estimator-grade leveling
 - [ ] Region/trade notation packs (AISC, BS/IS, AUS)
 
 ## Contributing
