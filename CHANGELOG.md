@@ -3,6 +3,18 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.4.0] - 2026-06-17
+### Added
+- **Verified evidence per line item**: `source_text` (exact printed line) so the
+  page citation is real, not an LLM guess.
+- **Arithmetic validation**: each line item gets `math_check` (`ok`/`mismatch`/`n/a`);
+  `qty × unit_price` is checked against `amount` (2% / $1 tolerance) and mismatches
+  are surfaced in the CLI. Non-LLM trust layer on top of extraction.
+- Offline regression tests (`tests/test_offline.py`) wired into CI.
+### Changed
+- README citation claim corrected to match what the code actually returns
+  (page + source_text + arithmetic check), after an external code review.
+
 ## [0.3.0] - 2026-06-17
 ### Added
 - Documentation suite: `PAPER.md` (whitepaper), `docs/RESULTS.md`,

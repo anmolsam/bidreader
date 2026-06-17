@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bidreader"
-version = "0.3.0"
+version = "0.4.0"
 description = "Read messy construction sub-quotes, bid packages & spec PDFs into clean structured data — and catch the scope gaps/exclusions vendors bury. Every value cited to its page."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -24,6 +24,7 @@ dependencies = ["pymupdf>=1.24", "certifi>=2024.0"]
 [project.optional-dependencies]
 tables = ["pdfplumber>=0.11"]
 mcp = ["mcp>=1.2"]
+dev = ["pytest>=8"]
 
 [project.scripts]
 bidreader = "bidreader.cli:main"

@@ -24,7 +24,7 @@ SCHEMA_PROMPT = """You are a construction estimating assistant reading a vendor/
  "vendor": "<company or null>", "project": "<project/title or null>",
  "trade": "<trade e.g. Drywall, Electrical or null>", "currency": "<e.g. USD or null>",
  "bid_total": <number or null>,
- "line_items": [{"section":"<csi/section or null>","description":"<text>","qty":<num|null>,"unit":"<EA/SF/LF/LS|null>","unit_price":<num|null>,"amount":<num|null>,"page":<int>}],
+ "line_items": [{"section":"<csi/section or null>","description":"<text>","qty":<num|null>,"unit":"<EA/SF/LF/LS|null>","unit_price":<num|null>,"amount":<num|null>,"page":<int>,"source_text":"<the EXACT line as printed in the document>"}],
  "exclusions": [{"item":"<short label>","quote":"<EXACT text as written>","page":<int>,"risk":"<one line: why this matters / who eats the cost>"}],
  "assumptions": [{"text":"<exact>","page":<int>}],
  "alternates": [{"text":"<exact>","amount":<num|null>,"page":<int>}],
@@ -87,6 +87,26 @@ def _clean(s):
     return json.loads(s)
 
 
+def validate(data):
+    """Attach an objective arithmetic check to each line item:
+    'ok' if qty*unit_price ≈ amount, 'mismatch' if not, 'n/a' if missing inputs.
+    This is non-LLM verification — the trust layer on top of extraction."""
+    flagged = 0
+    for li in data.get("line_items", []):
+        q, up, amt = li.get("qty"), li.get("unit_price"), li.get("amount")
+        if isinstance(q, (int, float)) and isinstance(up, (int, float)) and isinstance(amt, (int, float)):
+            expect = q * up
+            tol = max(1.0, abs(amt) * 0.02)  # 2% or $1
+            if abs(expect - amt) <= tol:
+                li["math_check"] = "ok"
+            else:
+                li["math_check"] = "mismatch"; li["math_expected"] = round(expect, 2); flagged += 1
+        else:
+            li["math_check"] = "n/a"
+    data["math_flagged"] = flagged
+    return data
+
+
 class Doc(dict):
     """Result with convenience accessors."""
     @property
@@ -130,7 +150,7 @@ def read(path: str) -> Doc:
     if sum(len(b) for b in blocks) < 40:
         raise RuntimeError("No extractable text (scanned PDF) — vision OCR path TODO.")
     chunks = _chunk(blocks)
-    data = _merge([_llm(c) for c in chunks])
+    data = validate(_merge([_llm(c) for c in chunks]))
     data["_source"] = path.split("/")[-1]
     data["_pages"] = doc.page_count
     data["_chunks"] = len(chunks)

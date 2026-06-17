@@ -4,7 +4,7 @@
 
 ### Read messy construction sub-quotes, bid packages & spec PDFs into clean structured data — and catch the scope gaps and exclusions vendors bury in the fine print.
 
-Every number is cited to its **page** and **exact source text**.
+Every line item carries its **page**, the **exact source text** it came from, and an **arithmetic check** (`qty × unit_price == amount`) — verification on top of extraction, not just an LLM guess.
 
 [![PyPI](https://img.shields.io/pypi/v/bidreader?color=2ea043&label=pip%20install%20bidreader)](https://pypi.org/project/bidreader/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
