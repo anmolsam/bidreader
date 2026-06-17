@@ -15,16 +15,29 @@ CORPUS, EXPECT = os.path.join(HERE, "corpus"), os.path.join(HERE, "expected")
 def toks(s): return set(re.findall(r"[a-z0-9]+", (s or "").lower()))
 
 
+def _unit_eq(a, b):
+    return (a or "").strip().upper() == (b or "").strip().upper()
+
+
 def match_items(pred, truth):
+    """STRICT match: amount within 1% AND unit equal AND qty within 2% (when both
+    present) AND description token-overlap >= 0.3. (Codex review: previous scorer
+    ignored qty/unit and was too lenient.)"""
     used, found = set(), 0
     for ti in truth:
-        ta, tt = ti["amount"], toks(ti["description"])
+        ta, tq, tt = ti["amount"], ti.get("qty"), toks(ti["description"])
         best, bs = None, 0.0
         for j, pi in enumerate(pred):
             if j in used or not isinstance(pi.get("amount"), (int, float)):
                 continue
-            if abs(pi["amount"] - ta) > max(1.0, abs(ta) * 0.03):
+            if abs(pi["amount"] - ta) > max(0.5, abs(ta) * 0.01):       # amount ±1%
                 continue
+            if not _unit_eq(pi.get("unit"), ti.get("unit")):            # unit must match
+                continue
+            pq = pi.get("qty")
+            if isinstance(tq, (int, float)) and isinstance(pq, (int, float)) and tq:
+                if abs(pq - tq) > abs(tq) * 0.02:                       # qty ±2%
+                    continue
             ov = len(tt & toks(pi.get("description"))) / (len(tt) or 1)
             if ov > bs:
                 best, bs = j, ov
@@ -100,6 +113,11 @@ def main():
          "arithmetic errors, multi-page, and image-only **scanned** docs). Authored here → "
          "exact ground truth, freely redistributable. Reproduce: "
          "`python demo/make_corpus.py && python demo/run_eval.py`.", "",
+         "**Scoring (strict):** a line item counts as found only if amount is within "
+         "1%, **unit matches**, and **qty is within 2%** (plus description overlap) — "
+         "not just a fuzzy amount. Exclusion score is recall of known buried exclusions. "
+         "These are *synthetic* docs (an upper bound on clean structure); a real, "
+         "estimator-labeled benchmark is the next step (`demo/real/`).", "",
          "## Aggregate (honest — includes failures)", "",
          "| metric | result |", "|---|---|",
          f"| Documents | {len(idx)} ({sum(1 for c in idx if c['scanned'])} scanned) |",

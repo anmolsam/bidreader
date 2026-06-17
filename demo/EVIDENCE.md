@@ -2,6 +2,8 @@
 
 BidReader run across **14 synthetic but messy** construction bids (prose-buried exclusions, fine-print footnotes, two-column layouts, planted arithmetic errors, multi-page, and image-only **scanned** docs). Authored here → exact ground truth, freely redistributable. Reproduce: `python demo/make_corpus.py && python demo/run_eval.py`.
 
+**Scoring (strict):** a line item counts as found only if amount is within 1%, **unit matches**, and **qty is within 2%** (plus description overlap) — not just a fuzzy amount. Exclusion score is recall of known buried exclusions. These are *synthetic* docs (an upper bound on clean structure); a real, estimator-labeled benchmark is the next step (`demo/real/`).
+
 ## Aggregate (honest — includes failures)
 
 | metric | result |
@@ -59,14 +61,14 @@ Low voltage / data cabling                X p1              X p1              X 
 Temporary power and tempora               X p1                 —              X p1                 —
 Equipment pads                               —              X p1                 —                 —
 Permits                                      —                 —              X p1                 —
-Generator & ATS                              —                 —                 —              X p1
+Generator and ATS                            —                 —                 —              X p1
 ```
 ### Drywall (3 subs)
 ```
 BID LEVELING — Acme Drywall & Fra vs Premier Wall Syste vs BudgetBoard Co
 
                               Acme Drywall & F  Premier Wall Sys    BudgetBoard Co
-Trade                                  Drywall           Drywall           Drywall
+Trade                         Drywall & Framin           Drywall           Drywall
 Bid total                             $108,748          $123,988           $90,680
 Line items                                   4                 5                 3
 Math flags                                   0                 0                 1
@@ -75,9 +77,9 @@ Math flags                                   0                 0                
 SCOPE / EXCLUSION MATRIX  (X = this bidder excluded it):
 exclusion                     Acme Drywall & F  Premier Wall Sys    BudgetBoard Co
 Fire-stopping                             X p1                 —              X p1
-High scaffolding                          X p1                 —              X p1
+Scaffolding over 10ft                     X p1                 —                 —
 Final cleaning                            X p1              X p1              X p1
-Scaffolding/Lifts                            —              X p1                 —
+Scaffolding/Lifts                            —              X p1              X p1
 Insulation                                   —                 —              X p1
 ```
 
