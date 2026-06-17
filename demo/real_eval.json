@@ -1,0 +1,158 @@
+[
+  {
+    "url": "https://www.buckleypc.com/wp-content/uploads/Sample-General-Construction-Estimate.pdf",
+    "error": "JSONDecodeError: Unterminated string starting at: line 57 column 22 (char 1397)",
+    "note": "Buckley Project Cost detailed general construction estimate with CSI line items, unit costs, and printed totals (2500+ dollar amounts)"
+  },
+  {
+    "url": "https://constructiontakeoffservices.com/wp-content/uploads/2025/02/residential-estimate-sample-addition-and-renovation.pdf",
+    "error": "JSONDecodeError: Expecting property name enclosed in double quotes: line 52 column 16 (char 2035)",
+    "note": "Construction Takeoff Services residential addition/renovation estimate, line items + quantities + costs + total"
+  },
+  {
+    "url": "https://federalestimating.com/wp-content/uploads/2025/12/general-contractor-sample.pdf",
+    "error": "JSONDecodeError: Expecting value: line 477 column 21 (char 17835)",
+    "note": "Federal Estimating general contractor sample estimate, detailed CSI divisions with costs and totals"
+  },
+  {
+    "url": "https://veracityestimating.com/wp-content/uploads/2025/03/Sixth-Story-Multi-Family-Building-Estimate-Sample.pdf",
+    "error": "JSONDecodeError: Expecting ',' delimiter: line 155 column 20 (char 5801)",
+    "note": "Veracity Estimating multi-family (6-story) building estimate, very detailed line items, unit costs, trade totals"
+  },
+  {
+    "url": "https://constructiontakeoffservices.com/wp-content/uploads/2025/02/Sitework-estimate-sample-veracity-estimating-2.pdf",
+    "error": "JSONDecodeError: Expecting property name enclosed in double quotes: line 300 column 33 (char 12123)",
+    "note": "Veracity/CTS sitework estimate sample, line items with quantities and costs (text + many table images)"
+  },
+  {
+    "url": "https://bidsestimating.com/wp-content/uploads/2025/08/Bids-Estimating-Special-Contructions-sample.pdf",
+    "error": "JSONDecodeError: Unterminated string starting at: line 257 column 19 (char 6234)",
+    "note": "Bids Estimating special constructions sample estimate with line items, costs and totals"
+  },
+  {
+    "url": "https://wsdot.wa.gov/sites/default/files/2026-05/Contracts-bidtabulation-26Y004.pdf",
+    "pages": 9,
+    "src": "text-layer",
+    "scanned": false,
+    "line_items": 60,
+    "exclusions": 0,
+    "extracted_total": 9743127.8,
+    "stated_total": 11208632.0,
+    "total_match": false,
+    "math_flags": 0,
+    "note": "Washington State DOT official bid tabulation 26Y004, multiple bidders with unit prices and totals"
+  },
+  {
+    "url": "https://transportation.ky.gov/Construction-Procurement/Publications/2026-03-26/Unit%20Bid%20Tabulations.pdf",
+    "error": "JSONDecodeError: Expecting ',' delimiter: line 46 column 23 (char 1366)",
+    "note": "Kentucky Transportation Cabinet unit bid tabulations, large multi-project DOT bid tab with unit prices and totals"
+  },
+  {
+    "url": "https://dgs.dc.gov/sites/default/files/dc/sites/dgs/page_content/attachments/Public%20Bid%20Tabulation%20-%20DCAM-23-CS-IFB-0011.pdf",
+    "pages": 1,
+    "src": "text-layer",
+    "scanned": false,
+    "line_items": 12,
+    "exclusions": 0,
+    "extracted_total": null,
+    "stated_total": 605000.0,
+    "total_match": false,
+    "math_flags": 0,
+    "note": "DC Dept of General Services public bid tabulation DCAM-23-CS-IFB-0011, bidder base bid amounts (thin, single page)"
+  },
+  {
+    "url": "https://biddingestimating.com/storage/2022/05/6.-MEP-Format.pdf",
+    "error": "JSONDecodeError: Unterminated string starting at: line 647 column 19 (char 20916)",
+    "note": "MEP (mechanical/electrical/plumbing) estimate format with line items, quantities, unit costs and totals"
+  },
+  {
+    "url": "https://biddingestimating.com/storage/2022/05/7.-Plumbing-Format.pdf",
+    "error": "JSONDecodeError: Expecting ',' delimiter: line 784 column 22 (char 26657)",
+    "note": "Plumbing trade estimate format with line items, quantities, unit costs and totals"
+  },
+  {
+    "url": "https://theaceservices.com/wp-content/uploads/2025/03/Estimate-For-901-RENALDI-PLAN1.pdf",
+    "error": "JSONDecodeError: Expecting ',' delimiter: line 44 column 23 (char 1323)",
+    "note": "ACE Services residential estimate (901 Renaldi), itemized costs with totals (text + many embedded plan images)"
+  },
+  {
+    "url": "https://www.ganarpro.com/wp-content/uploads/2024/06/schedule-of-values-sample-sov-on-aia-documentg703.1-1-1.pdf",
+    "pages": 3,
+    "src": "text-layer",
+    "scanned": false,
+    "line_items": 52,
+    "exclusions": 1,
+    "extracted_total": 85000,
+    "stated_total": 85000.0,
+    "total_match": true,
+    "math_flags": 0,
+    "note": "Schedule of Values sample on AIA G703 continuation sheet, line items with scheduled values"
+  },
+  {
+    "url": "https://www.wolgast.com/hubfs/Bid%20Tab%20for%20Publication%201.10.2025.pdf",
+    "pages": 3,
+    "src": "text-layer",
+    "scanned": false,
+    "line_items": 84,
+    "exclusions": 0,
+    "extracted_total": 4013405.0,
+    "stated_total": 969992.0,
+    "total_match": false,
+    "math_flags": 0,
+    "note": "Wolgast construction bid tabulation for publication, bidders with subcontractor/trade bid amounts"
+  },
+  {
+    "url": "https://www.etsu.edu/facilities/documents/01_29_73_schedule_of_values_2018-05_new.pdf",
+    "pages": 1,
+    "src": "text-layer",
+    "scanned": false,
+    "line_items": 0,
+    "exclusions": 0,
+    "extracted_total": null,
+    "stated_total": null,
+    "total_match": false,
+    "math_flags": 0,
+    "note": "East Tennessee State University facilities schedule of values form, line item values (thin, single page)"
+  },
+  {
+    "url": "https://resources.finalsite.net/images/v1704212336/ccsd15net/elzdwul5b57klemjvhdf/BID-ARCON-Phase-2-BID_Tabulations_ARCON_Additions_and_Renovations_at_Multiple_Schools_Phase_2.pdf",
+    "error": "JSONDecodeError: Expecting value: line 1061 column 5 (char 23508)",
+    "note": "CCSD15 ARCON Phase 2 school district bid tabulation (additions/renovations at multiple schools) - SCANNED image PDF, no extractable text"
+  },
+  {
+    "url": "https://www.nj.gov/transportation/contribute/business/procurement/ConstrServ/documents/BidTabsDP23122.pdf",
+    "error": "JSONDecodeError: Unterminated string starting at: line 287 column 19 (char 7725)",
+    "note": "New Jersey DOT construction services bid tabulation DP23122, large multi-page bid tab with itemized unit prices and totals"
+  },
+  {
+    "url": "https://www.cuanschutz.edu/docs/librariesprovider260/design-and-construction/rfp/2023-02-24-ed-2-n-4th-flr-reno-bid-tab-sbp-6132.pdf",
+    "pages": 1,
+    "src": "text-layer",
+    "scanned": false,
+    "line_items": 4,
+    "exclusions": 0,
+    "extracted_total": null,
+    "stated_total": 196500.0,
+    "total_match": false,
+    "math_flags": 0,
+    "note": "University of Colorado Anschutz / Colorado State Buildings Program bid tabulation form, 4 contractor base bids ($133K-$196K)"
+  },
+  {
+    "url": "https://estimations.us/wp-content/uploads/2026/01/Residential-Sample-01.pdf",
+    "error": "JSONDecodeError: Unterminated string starting at: line 891 column 22 (char 29657)",
+    "note": "Estimations.us residential sample estimate, full CSI divisions with qty/wastage/unit cost/total item cost/trade totals - very detailed"
+  },
+  {
+    "url": "https://theaceservices.com/wp-content/uploads/2025/03/1022-03.pdf",
+    "pages": 5,
+    "src": "text-layer",
+    "scanned": false,
+    "line_items": 56,
+    "exclusions": 0,
+    "extracted_total": 51513,
+    "stated_total": 19221.0,
+    "total_match": false,
+    "math_flags": 1,
+    "note": "ACE Services project estimate (1022), itemized line items with costs and totals"
+  }
+]

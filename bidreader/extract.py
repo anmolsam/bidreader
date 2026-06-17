@@ -11,7 +11,7 @@ LLM-native (works today). Provider-agnostic key from env: REQUESTY / OPENROUTER
 / GEMINI. MIT.
 """
 from __future__ import annotations
-import os, json, ssl, urllib.request, certifi
+import os, re, json, ssl, urllib.request, certifi
 import fitz
 
 SSLCTX = ssl.create_default_context(cafile=certifi.where())
@@ -45,7 +45,7 @@ def _page_blocks(doc):
     return out
 
 
-def _chunk(blocks, budget=42000):
+def _chunk(blocks, budget=24000):
     """Group page-blocks into chunks under a char budget so the model's JSON
     output never overflows on large multi-page estimates."""
     chunks, cur, n = [], [], 0
@@ -120,14 +120,53 @@ def _llm(text):
             "messages": [{"role": "user", "content": user}],
             "response_format": {"type": "json_object"}}
     if not be["local"]:
-        body["max_tokens"] = 16000          # cloud honors this; Ollama uses num_predict
+        body["max_tokens"] = 32000          # cloud honors this; Ollama uses num_predict
     r = _post(be["url"], be["headers"], body, be["local"])
     return _clean(r["choices"][0]["message"]["content"])
 
 
+def _balance_close(s):
+    """Best-effort repair of a TRUNCATED JSON object: close an open string, drop a
+    trailing incomplete token, and append the closers for any still-open brackets.
+    Recovers the complete items from a chunk whose JSON got cut mid-array."""
+    stack, in_str, esc = [], False, False
+    for ch in s:
+        if esc:
+            esc = False; continue
+        if ch == "\\" and in_str:
+            esc = True; continue
+        if ch == '"':
+            in_str = not in_str; continue
+        if in_str:
+            continue
+        if ch in "{[":
+            stack.append(ch)
+        elif ch in "}]" and stack:
+            stack.pop()
+    res = s + ('"' if in_str else "")
+    # strip a dangling partial token:  trailing comma / "key": / "key"
+    res = re.sub(r'(,\s*"[^"]*"\s*:?\s*[^,}\]]*)$', "", res)
+    res = re.sub(r'[,:]\s*$', "", res)
+    for ch in reversed(stack):
+        res += "}" if ch == "{" else "]"
+    return res
+
+
 def _clean(s):
+    """Tolerant JSON parse: strip fences, isolate the object, repair trailing commas
+    and truncation. Raises ValueError only if nothing parseable can be recovered."""
     s = s.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-    return json.loads(s)
+    i, j = s.find("{"), s.rfind("}")
+    if i != -1 and j != -1 and j > i:
+        s = s[i:j + 1]
+    for cand in (s,
+                 re.sub(r",(\s*[}\]])", r"\1", s),       # trailing commas
+                 _balance_close(s)):                      # truncated → close & drop partial
+        try:
+            return json.loads(cand)
+        except Exception:
+            continue
+    raise ValueError("unparseable JSON from model")
 
 
 def validate(data):
@@ -208,9 +247,18 @@ def read(path: str, ocr: str = "auto") -> Doc:
     if sum(len(b) for b in blocks) < 40:
         raise RuntimeError("No extractable text (even after OCR). Is the PDF blank or unreadable?")
     chunks = _chunk(blocks)
-    data = validate(_merge([_llm(c) for c in chunks]))
+    parts, failed = [], 0
+    for c in chunks:
+        try:
+            parts.append(_llm(c))          # tolerant JSON parse inside _clean
+        except Exception:
+            failed += 1                    # one bad chunk must not sink the whole doc
+    if not parts:
+        raise RuntimeError(f"All {len(chunks)} chunk(s) failed to parse — model output unusable.")
+    data = validate(_merge(parts))
     data["_source"] = path.split("/")[-1]
     data["_pages"] = doc.page_count
     data["_chunks"] = len(chunks)
+    data["_chunks_failed"] = failed
     data["_text_source"] = source
     return Doc(data)

@@ -3,6 +3,20 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.8.2] - 2026-06-17
+### Fixed
+- **Per-chunk JSON resilience** (found via a real-document eval where ~5/20 bids
+  hard-failed): a truncated/malformed chunk no longer sinks the whole document.
+  `read()` isolates each chunk (records `_chunks_failed`); `_clean()` is now a
+  tolerant parser (strip fences → isolate object → repair trailing commas →
+  `_balance_close` recovers complete items from a truncated chunk, dropping the
+  partial one). Smaller chunks (24k) + higher output budget (32k) reduce
+  truncation up front. Unit test covers truncated-JSON recovery.
+### Added
+- `demo/real_eval.py` + `demo/real/`: evaluate BidReader on REAL public bids,
+  validating extracted total against each doc's own printed total (objective,
+  no manual labeling). PDFs are cited by URL, not redistributed.
+
 ## [0.8.1] - 2026-06-17
 ### Fixed
 - **MCP private mode**: MCP tools no longer require a cloud key — they accept any

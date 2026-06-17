@@ -93,6 +93,20 @@ def test_ocr_text_layer_detection():
     assert ocr.has_text_layer(blank) is False
 
 
+def test_clean_recovers_truncated_json():
+    from bidreader.extract import _clean
+    # well-formed
+    assert _clean('{"line_items": [{"amount": 10}]}')["line_items"][0]["amount"] == 10
+    # fenced + trailing comma
+    assert _clean('```json\n{"a": 1, "line_items": [],}\n```')["a"] == 1
+    # TRUNCATED mid-array (the real-world failure): recover the complete items, drop the partial
+    truncated = '{"vendor": "Acme", "line_items": [{"amount": 100, "page": 1}, {"amount": 200, "desc": "ab'
+    rec = _clean(truncated)
+    assert rec["vendor"] == "Acme"
+    assert rec["line_items"][0]["amount"] == 100      # complete item preserved
+    assert len(rec["line_items"]) >= 1                 # partial item dropped, no crash
+
+
 def test_validate_flags_bad_arithmetic():
     data = {"line_items": [
         {"qty": 10, "unit_price": 2.0, "amount": 20.0},   # ok
