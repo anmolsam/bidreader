@@ -131,6 +131,19 @@ PDF (sub-quote / bid package / spec / schedule)
 
 Text-based, so it runs great on **free** models — see [docs/FREE_MODELS.md](docs/FREE_MODELS.md).
 
+## Evidence pack — see what it does on 14 messy bids
+
+[**`demo/EVIDENCE.md`**](demo/EVIDENCE.md) runs BidReader across 14 deliberately-messy
+synthetic bids (prose-buried exclusions, fine-print footnotes, two-column layouts,
+planted arithmetic errors, multi-page, **scanned** image-only docs) and reports
+honestly — wins *and* failures:
+
+- **100%** line-item recall · **97%** exclusion-catch · **100%** bid-total · **3/3** planted arithmetic errors caught · **2/2** scanned docs OCR'd
+- One honest miss documented: a low-DPI scan dropped 1 of 3 exclusions.
+- Two committed Excel leveling workbooks (electrical 4-sub, drywall 3-sub) showing the apparent-low-bid-that-carved-out-scope.
+
+Reproduce: `python demo/make_corpus.py && python demo/run_eval.py`.
+
 ## Benchmark
 
 Reproducible ground-truth benchmark ([`benchmark/`](benchmark/)) — synthetic docs we author, so truth is exact and the PDFs ship in-repo:

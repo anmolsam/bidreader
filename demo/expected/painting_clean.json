@@ -1,0 +1,38 @@
+{
+  "id": "painting_clean",
+  "trade": "Painting",
+  "vendor": "Straight Shooter Painting",
+  "bid_total": 42140.0,
+  "scanned": false,
+  "set": null,
+  "style": "tidy",
+  "line_items": [
+    {
+      "section": "09 91 00",
+      "description": "Prime + paint gypsum walls 2 coats",
+      "qty": 31000,
+      "unit": "SF",
+      "unit_price": 0.78,
+      "amount": 24180.0
+    },
+    {
+      "section": "09 91 00",
+      "description": "Paint doors and frames",
+      "qty": 36,
+      "unit": "EA",
+      "unit_price": 65.0,
+      "amount": 2340.0
+    },
+    {
+      "section": "09 91 23",
+      "description": "Paint exposed ceilings",
+      "qty": 14200,
+      "unit": "SF",
+      "unit_price": 1.1,
+      "amount": 15620.000000000002
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [],
+  "no_excl": true
+}

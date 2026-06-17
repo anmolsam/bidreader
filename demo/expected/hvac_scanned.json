@@ -1,0 +1,50 @@
+{
+  "id": "hvac_scanned",
+  "trade": "HVAC",
+  "vendor": "Climate Control Inc",
+  "bid_total": 355300.0,
+  "scanned": true,
+  "set": null,
+  "style": "tidy",
+  "line_items": [
+    {
+      "section": "23 74 00",
+      "description": "Rooftop units 20-ton",
+      "qty": 4,
+      "unit": "EA",
+      "unit_price": 38000.0,
+      "amount": 152000.0
+    },
+    {
+      "section": "23 31 00",
+      "description": "Ductwork galvanized",
+      "qty": 18000,
+      "unit": "LBS",
+      "unit_price": 6.4,
+      "amount": 115200.0
+    },
+    {
+      "section": "23 37 00",
+      "description": "Diffusers/grilles/registers",
+      "qty": 180,
+      "unit": "EA",
+      "unit_price": 145.0,
+      "amount": 26100.0
+    },
+    {
+      "section": "23 09 00",
+      "description": "Controls and BAS",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 62000.0,
+      "amount": 62000.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "electrical power",
+    "test and balance",
+    "roof curbs"
+  ],
+  "no_excl": false
+}

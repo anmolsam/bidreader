@@ -1,0 +1,42 @@
+{
+  "id": "demo_scanned_messy",
+  "trade": "Demolition",
+  "vendor": "Wrecking Crew LLC",
+  "bid_total": 150000.0,
+  "scanned": true,
+  "set": null,
+  "style": "footnote",
+  "line_items": [
+    {
+      "section": "02 41 00",
+      "description": "Interior selective demolition",
+      "qty": 34000,
+      "unit": "SF",
+      "unit_price": 2.8,
+      "amount": 95200.0
+    },
+    {
+      "section": "02 41 00",
+      "description": "Remove existing roofing",
+      "qty": 22000,
+      "unit": "SF",
+      "unit_price": 1.4,
+      "amount": 30799.999999999996
+    },
+    {
+      "section": "02 41 00",
+      "description": "Haul-off and disposal",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 24000.0,
+      "amount": 24000.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "hazardous",
+    "structural",
+    "permits"
+  ],
+  "no_excl": false
+}

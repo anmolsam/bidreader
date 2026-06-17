@@ -1,0 +1,59 @@
+{
+  "id": "elec_sub_c",
+  "trade": "Electrical",
+  "vendor": "Sparky Solutions LLC",
+  "bid_total": 77520.0,
+  "scanned": false,
+  "set": "electrical",
+  "style": "tidy",
+  "line_items": [
+    {
+      "section": "26 05 19",
+      "description": "Power branch wiring",
+      "qty": 8400,
+      "unit": "LF",
+      "unit_price": 1.1,
+      "amount": 9240.0
+    },
+    {
+      "section": "26 51 00",
+      "description": "2x4 LED troffers",
+      "qty": 220,
+      "unit": "EA",
+      "unit_price": 139.0,
+      "amount": 30580.0
+    },
+    {
+      "section": "26 27 26",
+      "description": "Wiring devices",
+      "qty": 540,
+      "unit": "EA",
+      "unit_price": 15.0,
+      "amount": 8100.0
+    },
+    {
+      "section": "26 24 16",
+      "description": "Panelboards",
+      "qty": 6,
+      "unit": "EA",
+      "unit_price": 1850.0,
+      "amount": 11100.0
+    },
+    {
+      "section": "26 56 00",
+      "description": "Site / exterior lighting",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 18500.0,
+      "amount": 18500.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "fire alarm",
+    "temporary power",
+    "low voltage",
+    "permits"
+  ],
+  "no_excl": false
+}

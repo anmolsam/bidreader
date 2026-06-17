@@ -1,0 +1,50 @@
+{
+  "id": "plumbing_quote",
+  "trade": "Plumbing",
+  "vendor": "FlowRight Mechanical",
+  "bid_total": 87540.0,
+  "scanned": false,
+  "set": null,
+  "style": "prose",
+  "line_items": [
+    {
+      "section": "22 11 00",
+      "description": "Domestic water piping copper",
+      "qty": 2400,
+      "unit": "LF",
+      "unit_price": 12.5,
+      "amount": 30000.0
+    },
+    {
+      "section": "22 13 00",
+      "description": "Sanitary waste & vent PVC",
+      "qty": 1800,
+      "unit": "LF",
+      "unit_price": 9.8,
+      "amount": 17640.0
+    },
+    {
+      "section": "22 40 00",
+      "description": "Plumbing fixtures (WC/lav/sink)",
+      "qty": 42,
+      "unit": "EA",
+      "unit_price": 650.0,
+      "amount": 27300.0
+    },
+    {
+      "section": "22 34 00",
+      "description": "Gas-fired water heaters",
+      "qty": 3,
+      "unit": "EA",
+      "unit_price": 4200.0,
+      "amount": 12600.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "trenching",
+    "medical gas",
+    "fire sprinkler"
+  ],
+  "no_excl": false
+}

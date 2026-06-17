@@ -1,0 +1,45 @@
+{
+  "id": "dw_sub_c",
+  "trade": "Drywall",
+  "vendor": "BudgetBoard Co",
+  "bid_total": 90680.0,
+  "scanned": false,
+  "set": "drywall",
+  "style": "twocol",
+  "line_items": [
+    {
+      "section": "09 22 16",
+      "description": "Metal framing",
+      "qty": 12400,
+      "unit": "SF",
+      "unit_price": 2.6,
+      "amount": 32240.0
+    },
+    {
+      "section": "09 29 00",
+      "description": "Gyp board both faces",
+      "qty": 24800,
+      "unit": "SF",
+      "unit_price": 1.55,
+      "amount": 38440.0
+    },
+    {
+      "section": "09 29 00",
+      "description": "Tape/finish",
+      "qty": 24800,
+      "unit": "SF",
+      "unit_price": 0.88,
+      "amount": 20000.0
+    }
+  ],
+  "math_error_idx": [
+    2
+  ],
+  "exclusion_keys": [
+    "fire-stopping",
+    "insulation",
+    "scaffolding",
+    "final cleaning"
+  ],
+  "no_excl": false
+}

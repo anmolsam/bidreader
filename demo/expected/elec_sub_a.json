@@ -1,0 +1,50 @@
+{
+  "id": "elec_sub_a",
+  "trade": "Electrical",
+  "vendor": "Voltage Bros Electric",
+  "bid_total": 64300.0,
+  "scanned": false,
+  "set": "electrical",
+  "style": "tidy",
+  "line_items": [
+    {
+      "section": "26 05 19",
+      "description": "Branch wiring THHN",
+      "qty": 8400,
+      "unit": "LF",
+      "unit_price": 1.2,
+      "amount": 10080.0
+    },
+    {
+      "section": "26 51 00",
+      "description": "LED 2x4 troffers",
+      "qty": 220,
+      "unit": "EA",
+      "unit_price": 145.0,
+      "amount": 31900.0
+    },
+    {
+      "section": "26 27 26",
+      "description": "Wiring devices + plates",
+      "qty": 540,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 9720.0
+    },
+    {
+      "section": "26 24 16",
+      "description": "Panelboards 42-ckt",
+      "qty": 6,
+      "unit": "EA",
+      "unit_price": 2100.0,
+      "amount": 12600.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "fire alarm",
+    "low voltage",
+    "temporary power"
+  ],
+  "no_excl": false
+}

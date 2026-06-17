@@ -1,0 +1,57 @@
+{
+  "id": "dw_sub_b",
+  "trade": "Drywall",
+  "vendor": "Premier Wall Systems",
+  "bid_total": 123988.0,
+  "scanned": false,
+  "set": "drywall",
+  "style": "tidy",
+  "line_items": [
+    {
+      "section": "09 22 16",
+      "description": "3-5/8in metal studs 25ga",
+      "qty": 12400,
+      "unit": "SF",
+      "unit_price": 3.05,
+      "amount": 37820.0
+    },
+    {
+      "section": "09 29 00",
+      "description": "Gypsum board 5/8 Type X 2 sides",
+      "qty": 24800,
+      "unit": "SF",
+      "unit_price": 1.72,
+      "amount": 42656.0
+    },
+    {
+      "section": "09 29 00",
+      "description": "Level 4 finish",
+      "qty": 24800,
+      "unit": "SF",
+      "unit_price": 1.05,
+      "amount": 26040.0
+    },
+    {
+      "section": "09 81 00",
+      "description": "R-13 batt insulation",
+      "qty": 12400,
+      "unit": "SF",
+      "unit_price": 0.78,
+      "amount": 9672.0
+    },
+    {
+      "section": "07 84 00",
+      "description": "Fire-stopping at rated walls",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 7800.0,
+      "amount": 7800.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "scaffolding",
+    "final cleaning"
+  ],
+  "no_excl": false
+}

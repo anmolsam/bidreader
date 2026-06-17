@@ -1,0 +1,52 @@
+{
+  "id": "steel_errors",
+  "trade": "Structural Steel",
+  "vendor": "IronClad Steel",
+  "bid_total": 476100.0,
+  "scanned": false,
+  "set": null,
+  "style": "footnote",
+  "line_items": [
+    {
+      "section": "05 12 00",
+      "description": "W-shape beams and columns",
+      "qty": 86,
+      "unit": "TON",
+      "unit_price": 2850.0,
+      "amount": 245100.0
+    },
+    {
+      "section": "05 21 00",
+      "description": "Steel joists",
+      "qty": 42,
+      "unit": "TON",
+      "unit_price": 2400.0,
+      "amount": 110000.0
+    },
+    {
+      "section": "05 31 00",
+      "description": "Metal deck 1.5in",
+      "qty": 30000,
+      "unit": "SF",
+      "unit_price": 3.1,
+      "amount": 93000.0
+    },
+    {
+      "section": "05 50 00",
+      "description": "Misc metals / embeds",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 28000.0,
+      "amount": 28000.0
+    }
+  ],
+  "math_error_idx": [
+    1
+  ],
+  "exclusion_keys": [
+    "fireproofing",
+    "anchor bolts",
+    "stairs"
+  ],
+  "no_excl": false
+}

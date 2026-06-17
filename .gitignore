@@ -6,7 +6,8 @@ __pycache__/
 dist/
 build/
 
-# ignore stray/test PDFs, but keep the shipped example + benchmark fixtures
+# ignore stray/test PDFs, but keep the shipped example + benchmark + demo fixtures
 *.pdf
 !examples/*.pdf
 !benchmark/docs/*.pdf
+!demo/corpus/*.pdf

@@ -1,0 +1,66 @@
+{
+  "id": "concrete_multipage",
+  "trade": "Concrete",
+  "vendor": "SolidForm Concrete",
+  "bid_total": 436360.0,
+  "scanned": false,
+  "set": null,
+  "style": "multipage",
+  "line_items": [
+    {
+      "section": "03 30 00",
+      "description": "Slab on grade 6in",
+      "qty": 28000,
+      "unit": "SF",
+      "unit_price": 7.2,
+      "amount": 201600.0
+    },
+    {
+      "section": "03 30 00",
+      "description": "Continuous footings",
+      "qty": 320,
+      "unit": "CY",
+      "unit_price": 165.0,
+      "amount": 52800.0
+    },
+    {
+      "section": "03 30 00",
+      "description": "Foundation walls 12in",
+      "qty": 180,
+      "unit": "CY",
+      "unit_price": 285.0,
+      "amount": 51300.0
+    },
+    {
+      "section": "03 21 00",
+      "description": "Reinforcing steel #5",
+      "qty": 42000,
+      "unit": "LBS",
+      "unit_price": 1.1,
+      "amount": 46200.00000000001
+    },
+    {
+      "section": "03 35 00",
+      "description": "Polished concrete finish",
+      "qty": 22000,
+      "unit": "SF",
+      "unit_price": 3.4,
+      "amount": 74800.0
+    },
+    {
+      "section": "03 15 00",
+      "description": "Expansion joint + sealant",
+      "qty": 2300,
+      "unit": "LF",
+      "unit_price": 4.2,
+      "amount": 9660.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "excavation",
+    "testing",
+    "retaining"
+  ],
+  "no_excl": false
+}

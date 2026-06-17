@@ -1,0 +1,57 @@
+{
+  "id": "elec_sub_b",
+  "trade": "Electrical",
+  "vendor": "Current Co",
+  "bid_total": 108890.0,
+  "scanned": false,
+  "set": "electrical",
+  "style": "footnote",
+  "line_items": [
+    {
+      "section": "26 05 19",
+      "description": "Branch circuit wiring",
+      "qty": 8400,
+      "unit": "LF",
+      "unit_price": 1.35,
+      "amount": 11340.0
+    },
+    {
+      "section": "26 51 00",
+      "description": "LED troffer fixtures 2x4",
+      "qty": 220,
+      "unit": "EA",
+      "unit_price": 158.0,
+      "amount": 34760.0
+    },
+    {
+      "section": "26 27 26",
+      "description": "Devices and coverplates",
+      "qty": 540,
+      "unit": "EA",
+      "unit_price": 16.5,
+      "amount": 8910.0
+    },
+    {
+      "section": "26 24 16",
+      "description": "Distribution panelboards",
+      "qty": 6,
+      "unit": "EA",
+      "unit_price": 1980.0,
+      "amount": 11880.0
+    },
+    {
+      "section": "28 31 00",
+      "description": "Fire alarm system complete",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 42000.0,
+      "amount": 42000.0
+    }
+  ],
+  "math_error_idx": [],
+  "exclusion_keys": [
+    "low voltage",
+    "pads"
+  ],
+  "no_excl": false
+}

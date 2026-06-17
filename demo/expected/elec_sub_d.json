@@ -1,0 +1,59 @@
+{
+  "id": "elec_sub_d",
+  "trade": "Electrical",
+  "vendor": "Ohm Town Electrical",
+  "bid_total": 100232.0,
+  "scanned": false,
+  "set": "electrical",
+  "style": "twocol",
+  "line_items": [
+    {
+      "section": "26 05 19",
+      "description": "Branch wiring (copper THHN)",
+      "qty": 8400,
+      "unit": "LF",
+      "unit_price": 1.28,
+      "amount": 10752.0
+    },
+    {
+      "section": "26 51 00",
+      "description": "2x4 LED fixtures",
+      "qty": 220,
+      "unit": "EA",
+      "unit_price": 150.0,
+      "amount": 30000.0
+    },
+    {
+      "section": "26 27 26",
+      "description": "Devices/plates",
+      "qty": 540,
+      "unit": "EA",
+      "unit_price": 17.0,
+      "amount": 9180.0
+    },
+    {
+      "section": "26 24 16",
+      "description": "Panelboards",
+      "qty": 6,
+      "unit": "EA",
+      "unit_price": 2050.0,
+      "amount": 12300.0
+    },
+    {
+      "section": "28 31 00",
+      "description": "Fire alarm",
+      "qty": 1,
+      "unit": "LS",
+      "unit_price": 38000.0,
+      "amount": 38000.0
+    }
+  ],
+  "math_error_idx": [
+    1
+  ],
+  "exclusion_keys": [
+    "low voltage",
+    "generator"
+  ],
+  "no_excl": false
+}

@@ -1,0 +1,114 @@
+[
+  {
+    "id": "elec_sub_a",
+    "trade": "Electrical",
+    "scanned": false,
+    "style": "tidy",
+    "total": 64300.0,
+    "set": "electrical"
+  },
+  {
+    "id": "elec_sub_b",
+    "trade": "Electrical",
+    "scanned": false,
+    "style": "footnote",
+    "total": 108890.0,
+    "set": "electrical"
+  },
+  {
+    "id": "elec_sub_c",
+    "trade": "Electrical",
+    "scanned": false,
+    "style": "tidy",
+    "total": 77520.0,
+    "set": "electrical"
+  },
+  {
+    "id": "elec_sub_d",
+    "trade": "Electrical",
+    "scanned": false,
+    "style": "twocol",
+    "total": 100232.0,
+    "set": "electrical"
+  },
+  {
+    "id": "dw_sub_a",
+    "trade": "Drywall",
+    "scanned": false,
+    "style": "footnote",
+    "total": 108748.0,
+    "set": "drywall"
+  },
+  {
+    "id": "dw_sub_b",
+    "trade": "Drywall",
+    "scanned": false,
+    "style": "tidy",
+    "total": 123988.0,
+    "set": "drywall"
+  },
+  {
+    "id": "dw_sub_c",
+    "trade": "Drywall",
+    "scanned": false,
+    "style": "twocol",
+    "total": 90680.0,
+    "set": "drywall"
+  },
+  {
+    "id": "plumbing_quote",
+    "trade": "Plumbing",
+    "scanned": false,
+    "style": "prose",
+    "total": 87540.0,
+    "set": null
+  },
+  {
+    "id": "roofing_spec",
+    "trade": "Roofing",
+    "scanned": false,
+    "style": "prose",
+    "total": 205100.0,
+    "set": null
+  },
+  {
+    "id": "concrete_multipage",
+    "trade": "Concrete",
+    "scanned": false,
+    "style": "multipage",
+    "total": 436360.0,
+    "set": null
+  },
+  {
+    "id": "steel_errors",
+    "trade": "Structural Steel",
+    "scanned": false,
+    "style": "footnote",
+    "total": 476100.0,
+    "set": null
+  },
+  {
+    "id": "painting_clean",
+    "trade": "Painting",
+    "scanned": false,
+    "style": "tidy",
+    "total": 42140.0,
+    "set": null
+  },
+  {
+    "id": "hvac_scanned",
+    "trade": "HVAC",
+    "scanned": true,
+    "style": "tidy",
+    "total": 355300.0,
+    "set": null
+  },
+  {
+    "id": "demo_scanned_messy",
+    "trade": "Demolition",
+    "scanned": true,
+    "style": "footnote",
+    "total": 150000.0,
+    "set": null
+  }
+]
