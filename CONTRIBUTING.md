@@ -30,3 +30,15 @@ bidreader examples/sample_quote.pdf
 ## PRs
 
 Small, focused PRs with a one-line CHANGELOG entry. Run the sample end-to-end before submitting.
+
+## Releasing (maintainers)
+
+1. Bump the version in `pyproject.toml`, `bidreader/__init__.py`, and `CITATION.cff` (must match), add a `CHANGELOG.md` entry.
+2. Create a **project-scoped** PyPI token (pypi.org → tokens) and export it — never paste it inline:
+   ```bash
+   export PYPI_TOKEN=pypi-...
+   ./release.sh --dry-run     # build + tests + checks, no upload
+   ./release.sh               # publishes the current version
+   git tag v$(grep -E '^version' pyproject.toml | sed -E 's/.*"(.*)".*/\1/') && git push --tags
+   ```
+`release.sh` verifies version consistency, refuses to re-publish an existing version, runs tests, and reads the token from `$PYPI_TOKEN` only.
