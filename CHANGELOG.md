@@ -3,6 +3,15 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.9.1] - 2026-06-17
+### Changed
+- Grand-total sum now extends `qty x unit_price` per line when an explicit `amount`
+  is absent (unit-price schedules). NOTE: a real-doc test (`15_plumbing`) surfaced a
+  separate limitation — on some layouts the LLM extracts line-item descriptions but
+  not their dollar columns (unit_price/amount null), so there is nothing to sum; the
+  total honestly stays null rather than being fabricated. Price-column extraction on
+  varied layouts is the next real gap.
+
 ## [0.9.0] - 2026-06-17
 ### Added
 - **Grand-total resolution + document cross-check.** When a doc prints no single

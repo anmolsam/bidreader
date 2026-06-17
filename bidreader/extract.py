@@ -188,7 +188,15 @@ def validate(data):
     data["math_flagged"] = flagged
 
     # ── grand-total resolution + document-level cross-check ──────────────────
-    amts = [li["amount"] for li in data.get("line_items", []) if isinstance(li.get("amount"), (int, float))]
+    def _li_amount(li):
+        a = li.get("amount")
+        if isinstance(a, (int, float)) and a:
+            return a
+        q, up = li.get("qty"), li.get("unit_price")     # unit-price schedules: extend qty*unit_price
+        if isinstance(q, (int, float)) and isinstance(up, (int, float)):
+            return q * up
+        return None
+    amts = [v for li in data.get("line_items", []) if (v := _li_amount(li)) is not None]
     computed = round(sum(amts), 2) if amts else None
     data["computed_total"] = computed          # sum of extracted line items
     printed = data.get("bid_total")
