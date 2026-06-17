@@ -1,3 +1,3 @@
 from .extract import read, Doc
 __all__ = ["read", "Doc"]
-__version__ = "0.8.2"
+__version__ = "0.9.0"

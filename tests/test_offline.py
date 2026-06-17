@@ -93,6 +93,27 @@ def test_ocr_text_layer_detection():
     assert ocr.has_text_layer(blank) is False
 
 
+def test_grand_total_sums_when_no_printed_total():
+    from bidreader.extract import validate
+    # no bid_total on the doc -> derive it by summing line items
+    d = validate({"line_items": [{"amount": 100.0}, {"amount": 250.0}, {"amount": 50.0}]})
+    assert d["bid_total"] == 400.0
+    assert d["total_source"] == "sum-of-line-items"
+    assert d["computed_total"] == 400.0
+
+
+def test_grand_total_cross_check_flags_divergence():
+    from bidreader.extract import validate
+    # printed total present but far from the sum -> flagged as not reconciling
+    d = validate({"bid_total": 1000.0, "line_items": [{"amount": 100.0}, {"amount": 200.0}]})
+    assert d["total_source"] == "printed"
+    assert d["total_reconciles"] is False
+    assert d["computed_total"] == 300.0
+    # printed total close to sum -> reconciles
+    d2 = validate({"bid_total": 305.0, "line_items": [{"amount": 100.0}, {"amount": 200.0}]})
+    assert d2["total_reconciles"] is True
+
+
 def test_clean_recovers_truncated_json():
     from bidreader.extract import _clean
     # well-formed

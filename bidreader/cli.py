@@ -45,7 +45,11 @@ def main():
         print(f"  {str(li.get('section') or '-'):10s}{str(li.get('description',''))[:40]:41s}"
               f"{str(li.get('qty') or ''):>8s}{str(li.get('unit') or ''):>5s}{amt:>13s}  p{li.get('page','?')}")
     if d.get('bid_total'):
-        print(f"  {'BID TOTAL':56s}{'$' + format(d['bid_total'], ',.2f'):>13s}")
+        src = d.get('total_source', '')
+        tag = "(summed from line items)" if src == "sum-of-line-items" else ""
+        print(f"  {'BID TOTAL ' + tag:56s}{'$' + format(d['bid_total'], ',.2f'):>13s}")
+        if d.get('total_reconciles') is False:
+            print(f"  !! printed total vs sum-of-items off by {d.get('total_delta_pct')}% — verify missing/duplicate items")
     mm = [li for li in d.line_items if li.get('math_check') == 'mismatch']
     if mm:
         print(f"\n!!  ARITHMETIC MISMATCHES ({len(mm)}) — qty x unit_price != amount:")

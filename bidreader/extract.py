@@ -186,6 +186,24 @@ def validate(data):
         else:
             li["math_check"] = "n/a"
     data["math_flagged"] = flagged
+
+    # ── grand-total resolution + document-level cross-check ──────────────────
+    amts = [li["amount"] for li in data.get("line_items", []) if isinstance(li.get("amount"), (int, float))]
+    computed = round(sum(amts), 2) if amts else None
+    data["computed_total"] = computed          # sum of extracted line items
+    printed = data.get("bid_total")
+    if isinstance(printed, (int, float)) and printed:
+        data["total_source"] = "printed"
+        if computed:
+            delta = abs(printed - computed) / abs(printed)
+            data["total_reconciles"] = delta <= 0.03
+            data["total_delta_pct"] = round(delta * 100, 1)
+    elif computed:
+        data["bid_total"] = computed           # no printed grand total → sum the items
+        data["total_source"] = "sum-of-line-items"
+        data["total_reconciles"] = None
+    else:
+        data["total_source"] = None
     return data
 
 

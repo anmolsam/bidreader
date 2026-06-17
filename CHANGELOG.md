@@ -3,6 +3,15 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.9.0] - 2026-06-17
+### Added
+- **Grand-total resolution + document cross-check.** When a doc prints no single
+  grand total (line-item-only estimates), `bid_total` is now derived by summing the
+  line items (`total_source="sum-of-line-items"`). When a printed total IS present,
+  it's cross-checked against the sum (`total_reconciles`, `total_delta_pct`) — a
+  document-level trust signal that catches missing/duplicate items. CLI surfaces both.
+  Fixes the main real-world gap from the real-doc eval (4 docs returned null totals).
+
 ## [0.8.2] - 2026-06-17
 ### Fixed
 - **Per-chunk JSON resilience** (found via a real-document eval where ~5/20 bids
