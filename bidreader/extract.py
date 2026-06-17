@@ -33,13 +33,41 @@ SCHEMA_PROMPT = """You are a construction estimating assistant reading a vendor/
 }
 Rules: exclusions are CRITICAL — hunt everywhere, including fine print, footnotes, "by others", "not included",
 "excludes", "assumes", "clarifications". Quote them verbatim with the page. Do not invent values; use null if unsure.
-For scope_gaps, infer trade-standard scope a vendor commonly omits that is NOT mentioned in this doc."""
+For scope_gaps, infer trade-standard scope a vendor commonly omits that is NOT mentioned in this doc.
+DOLLARS: this is a priced estimate — for EVERY line item capture its money. [TABLE] blocks are column-aligned
+(typically CSI | description | qty | unit | unit price | amount/total): read the rightmost dollar value on a row as
+"amount" and the per-unit dollar as "unit_price". If a row shows any dollar figure, do NOT leave both unit_price and
+amount null. If only a unit price is shown, set unit_price and leave amount null (it will be computed)."""
+
+
+def _tables_text(page):
+    """Detected tables rendered as pipe-aligned rows, so the model can map the
+    dollar columns (unit price / amount) to the right row — plain text extraction
+    flattens columns and loses that association."""
+    try:
+        tabs = page.find_tables()
+    except Exception:
+        return ""
+    out = []
+    for t in getattr(tabs, "tables", []) or []:
+        try:
+            rows = t.extract()
+        except Exception:
+            continue
+        lines = [" | ".join("" if c is None else str(c).replace("\n", " ").strip() for c in r)
+                 for r in rows if any(c not in (None, "") for c in r)]
+        if len(lines) >= 2:
+            out.append("[TABLE]\n" + "\n".join(lines))
+    return "\n".join(out)
 
 
 def _page_blocks(doc):
     out = []
     for i, p in enumerate(doc):
         t = p.get_text().strip()
+        tbl = _tables_text(p)
+        if tbl:
+            t = (t + "\n\n" + tbl).strip()
         if t:
             out.append(f"[PAGE {i+1}]\n{t}")
     return out

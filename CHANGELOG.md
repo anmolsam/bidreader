@@ -3,6 +3,19 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.9.2] - 2026-06-17
+### Added
+- **Table-aware extraction.** Each page's detected tables (PyMuPDF `find_tables`)
+  are appended as pipe-aligned rows, so the model can map dollar columns
+  (unit price / amount) to the right row — flat text extraction loses that
+  alignment. Prompt hardened to always capture per-line dollars from [TABLE] blocks.
+### Honest result
+- Measurable improvement on price-heavy real docs (priced line items recovered
+  0 -> 153 on a plumbing summary, 0 -> 213 on an MEP estimate). Two CSI-division
+  *summary templates* still don't yield a clean grand total (unit prices without
+  quantities; some `$ -` placeholder cells) — a structural property of those docs,
+  not an extraction bug. Clean itemized estimates already reconcile exactly.
+
 ## [0.9.1] - 2026-06-17
 ### Changed
 - Grand-total sum now extends `qty x unit_price` per line when an explicit `amount`
