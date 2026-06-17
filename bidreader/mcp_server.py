@@ -53,6 +53,26 @@ def extract_line_items(path: str) -> dict:
             "line_items": d.get("line_items", [])}
 
 
+@mcp.tool()
+def level_bids(paths: list[str]) -> dict:
+    """Compare multiple subcontractor quotes (same scope) apples-to-apples. Pass a
+    list of absolute PDF paths. Returns each bidder's total + a normalized exclusion
+    matrix showing WHICH bidder excluded WHICH scope — so a "low" bid that carved out
+    scope is exposed. Use this for bid-day leveling across competing subs."""
+    _check_key()
+    from .leveling import level
+    r = level(paths)
+    return {
+        "bidders": [{"name": b["name"], "trade": b["trade"], "bid_total": b["bid_total"],
+                     "n_exclusions": len(b["exclusions"]), "math_flags": b["n_math_flagged"]}
+                    for b in r["bidders"]],
+        "exclusion_matrix": [
+            {"scope": c["label"],
+             "excluded_by": [r["bidders"][i]["name"] for i in c["members"]]}
+            for c in r["exclusion_rows"]],
+    }
+
+
 def main():
     mcp.run()
 

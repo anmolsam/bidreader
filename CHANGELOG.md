@@ -3,6 +3,22 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.6.0] - 2026-06-17
+### Added
+- **Bid leveling → Excel** (`bidreader level q1.pdf q2.pdf … -o leveling.xlsx`):
+  reads multiple subs and builds an apples-to-apples workbook — bidders as
+  columns, a normalized **exclusion matrix** (which bidder excluded which scope,
+  exposing the "low bid that carved out scope"), scope-gap matrix, lowest-bid
+  marker, and per-bidder detail sheets with arithmetic flags. New `[xlsx]` extra
+  (openpyxl) and `bidreader.leveling` module.
+- **MCP tool `level_bids`** — agents can level competing bids and get the
+  exclusion matrix as JSON.
+- Offline test for the exclusion-clustering (synonymous phrasings collapse).
+- `examples/make_leveling_sample.py` → 3 competing electrical subs + `leveling_demo.xlsx`.
+### Addresses
+- The #1 estimator-workflow gap from external review: output lands in Excel and
+  supports side-by-side sub leveling (the bid-day workflow), not just one quote.
+
 ## [0.5.0] - 2026-06-17
 ### Added
 - **Reproducible ground-truth benchmark** (`benchmark/`): 5 synthetic, freely-

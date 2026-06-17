@@ -21,7 +21,7 @@ jobs:
       - name: Install (with extras)
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[mcp,tables,dev]"
+          pip install -e ".[mcp,tables,xlsx,dev]"
       - name: Offline tests (no network)
         run: pytest -q tests/
       - name: Import + CLI smoke (no network)

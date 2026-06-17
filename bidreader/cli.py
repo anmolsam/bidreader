@@ -3,12 +3,30 @@ import sys, json
 from .extract import read
 
 
+def _level(argv):
+    from .leveling import level, to_xlsx, summary_text
+    out = "leveling.xlsx"
+    if "-o" in argv:
+        i = argv.index("-o"); out = argv[i + 1]; argv = argv[:i] + argv[i + 2:]
+    pdfs = [a for a in argv if a.lower().endswith(".pdf")]
+    if len(pdfs) < 2:
+        print("usage: bidreader level <quote1.pdf> <quote2.pdf> [...] [-o leveling.xlsx]"); sys.exit(1)
+    print(f"leveling {len(pdfs)} bids ...", file=sys.stderr)
+    result = level(pdfs)
+    print(summary_text(result))
+    to_xlsx(result, out)
+    print(f"\nwrote {out}")
+
+
 def main():
     args = [a for a in sys.argv[1:]]
+    if args and args[0] == "level":
+        _level(args[1:]); return
     as_json = "--json" in args
     paths = [a for a in args if not a.startswith("-")]
     if not paths:
-        print("usage: bidreader <document.pdf> [--json]"); sys.exit(1)
+        print("usage: bidreader <document.pdf> [--json]\n"
+              "       bidreader level <q1.pdf> <q2.pdf> [...] [-o leveling.xlsx]"); sys.exit(1)
     d = read(paths[0])
     if as_json:
         print(d.to_json()); return

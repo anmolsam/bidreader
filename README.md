@@ -60,6 +60,29 @@ On a real **$324,240.61 drywall estimate** (72 line items, scanned in seconds), 
 
 On a real **25-page multi-trade GC estimate**, it parsed **959 line items across 16 CSI divisions** (demolition → concrete → steel → finishes → plumbing → fire suppression), each page-cited. See [docs/RESULTS.md](docs/RESULTS.md) and a full worked example in [`examples/`](examples/).
 
+## Bid leveling — compare subs side-by-side → Excel
+
+The bid-day workflow: read every sub's quote and level them apples-to-apples.
+
+```bash
+pip install "bidreader[xlsx]"
+bidreader level voltage_bros.pdf current_co.pdf sparky.pdf -o leveling.xlsx
+```
+
+It builds an Excel workbook (bidders as columns) with a **scope/exclusion matrix** that exposes the catch every estimator dreads — the *apparent* low bid that quietly carved out scope:
+
+```
+                  Voltage Bros   Current Co   Sparky
+Bid total            $64,300      $108,890    $77,520
+                     ◀ LOW
+EXCLUSION MATRIX (filled = this bidder EXCLUDED it):
+Fire alarm system    EXCL p1         —        EXCL p1
+Temporary power      EXCL p1         —        EXCL p1
+Permits                 —            —        EXCL p1
+```
+
+The "$64,300 low bid" excluded the fire alarm the $108,890 bid *includes* — not actually the cheapest. Plus per-bidder detail sheets with line items + arithmetic flags. (Try it: `python examples/make_leveling_sample.py` → `examples/leveling_demo.xlsx`.)
+
 ## Use it from an AI agent (MCP)
 
 ```bash

@@ -23,6 +23,22 @@ def test_merge_concats_and_picks_grand_total():
     assert m["vendor"] == "Acme"
 
 
+def test_leveling_clusters_synonymous_exclusions():
+    from bidreader.leveling import _cluster
+    recs = [
+        {"bidder": 0, "item": "Fire alarm system and devices excluded"},
+        {"bidder": 2, "item": "Fire alarm EXCLUDED"},
+        {"bidder": 1, "item": "Equipment and housekeeping pads excluded"},
+    ]
+    clusters = _cluster(recs, "item")
+    # the two fire-alarm phrasings collapse into one row covering bidders 0 and 2
+    fa = [c for c in clusters if "alarm" in c["label"].lower()]
+    assert len(fa) == 1
+    assert set(fa[0]["members"].keys()) == {0, 2}
+    # the pads exclusion stays its own row
+    assert any("pads" in c["label"].lower() for c in clusters)
+
+
 def test_validate_flags_bad_arithmetic():
     data = {"line_items": [
         {"qty": 10, "unit_price": 2.0, "amount": 20.0},   # ok
