@@ -71,6 +71,18 @@ On a real **$324,240.61 drywall estimate** (72 line items, scanned in seconds), 
 
 On a real **25-page multi-trade GC estimate**, it parsed **959 line items across 16 CSI divisions** (demolition → concrete → steel → finishes → plumbing → fire suppression), each page-cited. See [docs/RESULTS.md](docs/RESULTS.md) and a full worked example in [`examples/`](examples/).
 
+## Scanned PDFs
+
+Lots of real bids are scans with no text layer. BidReader auto-detects those and
+falls back to **local Tesseract OCR** — same structured output, still private:
+
+```bash
+pip install "bidreader[ocr]"           # + tesseract binary: brew install tesseract
+bidreader scanned_quote.pdf            # auto-OCR; or force with --ocr always
+```
+Verified on an image-only quote: recovered all line items, total, and exclusions
+purely from the page image.
+
 ## Bid leveling — compare subs side-by-side → Excel
 
 The bid-day workflow: read every sub's quote and level them apples-to-apples.

@@ -23,11 +23,15 @@ def main():
     if args and args[0] == "level":
         _level(args[1:]); return
     as_json = "--json" in args
+    ocr = "auto"
+    if "--ocr" in args:
+        i = args.index("--ocr"); ocr = args[i + 1] if i + 1 < len(args) else "auto"
+        args = args[:i] + args[i + 2:]
     paths = [a for a in args if not a.startswith("-")]
     if not paths:
-        print("usage: bidreader <document.pdf> [--json]\n"
+        print("usage: bidreader <document.pdf> [--json] [--ocr auto|always|never]\n"
               "       bidreader level <q1.pdf> <q2.pdf> [...] [-o leveling.xlsx]"); sys.exit(1)
-    d = read(paths[0])
+    d = read(paths[0], ocr=ocr)
     if as_json:
         print(d.to_json()); return
     print("=" * 74)

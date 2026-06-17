@@ -183,18 +183,34 @@ def _merge(parts):
     return out
 
 
-def read(path: str) -> Doc:
+def read(path: str, ocr: str = "auto") -> Doc:
     """Read a construction PDF into structured, page-cited data.
 
     Large multi-page estimates are chunked by page and merged, so the model's
-    JSON output never truncates."""
+    JSON output never truncates.
+
+    ocr: "auto" (default) runs local Tesseract OCR when the PDF has no text layer
+    (scanned); "always" forces OCR; "never" disables it (raises on scanned input).
+    """
+    from . import ocr as _ocr
     doc = fitz.open(path)
     blocks = _page_blocks(doc)
+    source = "text-layer"
+    scanned = sum(len(b) for b in blocks) < 40
+    if (ocr == "always") or (scanned and ocr == "auto"):
+        if ocr != "always" and not _ocr.tesseract_available():
+            raise RuntimeError(
+                "Scanned PDF (no text layer) and OCR is unavailable. Install OCR: "
+                "pip install \"bidreader[ocr]\" + the tesseract binary "
+                "(`brew install tesseract` / `apt install tesseract-ocr`), or pass ocr='never'.")
+        blocks = _ocr.ocr_pages(doc)
+        source = "ocr"
     if sum(len(b) for b in blocks) < 40:
-        raise RuntimeError("No extractable text (scanned PDF) — vision OCR path TODO.")
+        raise RuntimeError("No extractable text (even after OCR). Is the PDF blank or unreadable?")
     chunks = _chunk(blocks)
     data = validate(_merge([_llm(c) for c in chunks]))
     data["_source"] = path.split("/")[-1]
     data["_pages"] = doc.page_count
     data["_chunks"] = len(chunks)
+    data["_text_source"] = source
     return Doc(data)

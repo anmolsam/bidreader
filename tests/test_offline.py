@@ -81,6 +81,18 @@ def test_leveling_clusters_synonymous_exclusions():
     assert any("pads" in c["label"].lower() for c in clusters)
 
 
+def test_ocr_text_layer_detection():
+    import fitz
+    from bidreader import ocr
+    # a page with text -> has a text layer
+    doc = fitz.open(); pg = doc.new_page()
+    pg.insert_text((72, 72), "ELECTRICAL SUBCONTRACTOR QUOTE - line items and totals here")
+    assert ocr.has_text_layer(doc) is True
+    # an empty page -> no text layer (would trigger OCR fallback)
+    blank = fitz.open(); blank.new_page()
+    assert ocr.has_text_layer(blank) is False
+
+
 def test_validate_flags_bad_arithmetic():
     data = {"line_items": [
         {"qty": 10, "unit_price": 2.0, "amount": 20.0},   # ok

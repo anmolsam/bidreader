@@ -3,6 +3,15 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.8.0] - 2026-06-17
+### Added
+- **Scanned-PDF OCR** (`bidreader/ocr.py`): scanned / image-only PDFs are
+  auto-detected and OCR'd with local **Tesseract** (rasterize → OCR → existing
+  pipeline), so scans no longer hard-fail. Fully local (page images never leave
+  the machine). `read(path, ocr="auto"|"always"|"never")`; CLI `--ocr`; `[ocr]`
+  extra (pytesseract + pillow; needs the `tesseract` binary). Result carries
+  `_text_source` ("text-layer" | "ocr"). Verified end-to-end on an image-only quote.
+
 ## [0.7.0] - 2026-06-17
 ### Added
 - **Local / private mode via Ollama** — run fully offline, no API key, bids never
