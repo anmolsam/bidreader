@@ -46,6 +46,17 @@ doc.scope_gaps     # trade-standard scope NOT in the doc — confirm before bidd
 doc.to_json()
 ```
 
+## Private mode — bids never leave your machine
+
+Sub bids are confidential. Run BidReader fully offline against a local [Ollama](https://ollama.com) model — **no document text is sent to any cloud LLM, no API key**:
+
+```bash
+ollama pull llama3.1
+export BID_MODEL=ollama/llama3.1
+bidreader your_sub_quote.pdf        # 100% local
+```
+Full guide + on-prem/shared-host options: [docs/LOCAL_MODELS.md](docs/LOCAL_MODELS.md).
+
 ## Real output
 
 On a real **$324,240.61 drywall estimate** (72 line items, scanned in seconds), BidReader's scope engine caught a genuinely expensive hole:

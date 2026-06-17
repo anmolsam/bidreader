@@ -1,5 +1,47 @@
 """Offline regression tests (no network / no LLM). Run: pytest -q"""
+import os
+import bidreader.extract as ex
 from bidreader.extract import _chunk, _merge, validate
+
+
+def _backend(monkeyenv):
+    """Helper: set env (clearing LLM vars first) and return the selected backend."""
+    for k in ("BID_BACKEND", "OLLAMA_HOST", "OLLAMA_MODEL", "REQUESTY_API_KEY",
+              "OPENROUTER_API_KEY", "GEMINI_API_KEY", "GOOGLE_API_KEY"):
+        os.environ.pop(k, None)
+    os.environ.update(monkeyenv)
+    return ex._select_backend()
+
+
+def test_ollama_backend_needs_no_key_and_is_local():
+    orig_model = ex.MODEL
+    try:
+        ex.MODEL = "ollama/llama3.1"
+        be = _backend({})
+        assert be["name"] == "ollama" and be["local"] is True
+        assert be["url"] == "http://localhost:11434/v1/chat/completions"
+        assert be["model"] == "llama3.1"
+        assert "Authorization" not in be["headers"]   # no key, bids stay local
+    finally:
+        ex.MODEL = orig_model
+
+
+def test_ollama_via_env_flag_and_custom_host():
+    orig_model = ex.MODEL
+    try:
+        ex.MODEL = "google/gemini-2.5-flash"   # default cloud model present
+        be = _backend({"BID_BACKEND": "ollama", "OLLAMA_HOST": "http://box:11434",
+                       "OLLAMA_MODEL": "qwen2.5"})
+        assert be["url"] == "http://box:11434/v1/chat/completions"
+        assert be["model"] == "qwen2.5" and be["local"] is True
+    finally:
+        ex.MODEL = orig_model
+
+
+def test_cloud_backend_selection_priority():
+    be = _backend({"REQUESTY_API_KEY": "x", "OPENROUTER_API_KEY": "y"})
+    assert be["name"] == "requesty" and be["local"] is False
+    assert be["headers"]["Authorization"].startswith("Bearer ")
 
 
 def test_chunk_respects_budget_and_keeps_all_pages():

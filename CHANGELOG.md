@@ -3,6 +3,19 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.7.0] - 2026-06-17
+### Added
+- **Local / private mode via Ollama** — run fully offline, no API key, bids never
+  leave the machine. Enable with `BID_MODEL=ollama/<model>`, `BID_BACKEND=ollama`,
+  or `OLLAMA_HOST=...` (incl. shared on-prem hosts). Closes the bid-confidentiality
+  adoption blocker. Docs: `docs/LOCAL_MODELS.md`.
+- Backend selection refactored into a testable `_select_backend()` (priority:
+  Ollama > Requesty > OpenRouter > Google AI Studio) with offline tests proving
+  the local path needs no key and targets `localhost:11434`.
+### Changed
+- HTTP calls go through `_post()` (plain http for local Ollama, certifi-verified
+  https for cloud; 10-min timeout for slower local inference).
+
 ## [0.6.0] - 2026-06-17
 ### Added
 - **Bid leveling → Excel** (`bidreader level q1.pdf q2.pdf … -o leveling.xlsx`):

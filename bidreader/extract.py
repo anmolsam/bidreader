@@ -58,27 +58,70 @@ def _chunk(blocks, budget=42000):
     return chunks
 
 
-def _llm(text):
+def _select_backend():
+    """Pick the LLM backend from the environment (testable, no network).
+
+    Priority: explicit Ollama (local, no key, bids never leave the machine) >
+    Requesty > OpenRouter > Google AI Studio. Returns a dict describing the call.
+    """
+    model = MODEL
+    ollama_host = os.environ.get("OLLAMA_HOST")
+    want_ollama = (os.environ.get("BID_BACKEND") == "ollama" or bool(ollama_host)
+                   or model.startswith("ollama/"))
+    if want_ollama:
+        host = (ollama_host or "http://localhost:11434").rstrip("/")
+        if model.startswith("ollama/"):
+            m = model.split("/", 1)[1]
+        elif model and "/" not in model:
+            m = model
+        else:
+            m = os.environ.get("OLLAMA_MODEL", "llama3.1")
+        return {"name": "ollama", "url": host + "/v1/chat/completions",
+                "headers": {"Content-Type": "application/json"}, "model": m,
+                "style": "openai", "local": True}
     rq = os.environ.get("REQUESTY_API_KEY"); ork = os.environ.get("OPENROUTER_API_KEY")
     gk = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    if rq:
+        return {"name": "requesty", "url": "https://router.requesty.ai/v1/chat/completions",
+                "headers": {"Authorization": f"Bearer {rq}", "Content-Type": "application/json"},
+                "model": model, "style": "openai", "local": False}
+    if ork:
+        return {"name": "openrouter", "url": "https://openrouter.ai/api/v1/chat/completions",
+                "headers": {"Authorization": f"Bearer {ork}", "Content-Type": "application/json"},
+                "model": model, "style": "openai", "local": False}
+    if gk:
+        m = model.split("/")[-1]
+        return {"name": "aistudio", "model": m, "style": "gemini", "local": False,
+                "url": f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent?key={gk}",
+                "headers": {"Content-Type": "application/json"}}
+    raise RuntimeError("No LLM backend: run Ollama locally (BID_BACKEND=ollama or "
+                       "BID_MODEL=ollama/llama3.1) or set REQUESTY_API_KEY / "
+                       "OPENROUTER_API_KEY / GEMINI_API_KEY.")
+
+
+def _post(url, headers, body, local):
+    data = json.dumps(body).encode()
+    req = urllib.request.Request(url, data=data, headers=headers)
+    # local Ollama is plain http; cloud is https → verify with certifi
+    ctx = None if local or url.startswith("http://") else SSLCTX
+    timeout = 600 if local else 180   # local CPU inference can be slow
+    return json.load(urllib.request.urlopen(req, timeout=timeout, context=ctx))
+
+
+def _llm(text):
     user = SCHEMA_PROMPT + "\n\n=== DOCUMENT TEXT ===\n" + text[:120000]
-    if rq: base, key = "https://router.requesty.ai/v1/chat/completions", rq
-    elif ork: base, key = "https://openrouter.ai/api/v1/chat/completions", ork
-    elif gk:
-        m = MODEL.split("/")[-1]
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent?key={gk}"
-        body = {"contents":[{"parts":[{"text":user}]}],
-                "generationConfig":{"response_mime_type":"application/json","temperature":0}}
-        req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={"Content-Type":"application/json"})
-        r = json.load(urllib.request.urlopen(req, timeout=180, context=SSLCTX))
+    be = _select_backend()
+    if be["style"] == "gemini":
+        body = {"contents": [{"parts": [{"text": user}]}],
+                "generationConfig": {"response_mime_type": "application/json", "temperature": 0}}
+        r = _post(be["url"], be["headers"], body, be["local"])
         return _clean(r["candidates"][0]["content"]["parts"][0]["text"])
-    else:
-        raise RuntimeError("Set REQUESTY_API_KEY / OPENROUTER_API_KEY / GEMINI_API_KEY")
-    body = {"model": MODEL, "temperature": 0, "max_tokens": 16000, "reasoning_effort": "low",
-            "messages": [{"role": "user", "content": user}]}
-    req = urllib.request.Request(base, data=json.dumps(body).encode(),
-                                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
-    r = json.load(urllib.request.urlopen(req, timeout=180, context=SSLCTX))
+    body = {"model": be["model"], "temperature": 0,
+            "messages": [{"role": "user", "content": user}],
+            "response_format": {"type": "json_object"}}
+    if not be["local"]:
+        body["max_tokens"] = 16000          # cloud honors this; Ollama uses num_predict
+    r = _post(be["url"], be["headers"], body, be["local"])
     return _clean(r["choices"][0]["message"]["content"])
 
 
