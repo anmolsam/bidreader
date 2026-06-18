@@ -34,16 +34,22 @@ def main():
     d = read(paths[0], ocr=ocr)
     if as_json:
         print(d.to_json()); return
+    g = lambda k, default="unknown": d.get(k) or default
     print("=" * 74)
     print(f"BIDREADER  |  {d['_source']}  ({d['_pages']}p)")
     print("=" * 74)
-    print(f"{d.get('doc_type','?')}  |  {d.get('vendor','?')}  |  trade: {d.get('trade','?')}  |  {d.get('currency','')}")
-    print(f"Project: {d.get('project','?')}")
+    meta = "  |  ".join(x for x in [g('doc_type', 'document'), g('vendor', ''),
+                                    f"trade: {g('trade')}", g('currency', 'USD')] if x)
+    print(meta)
+    if d.get('project'):
+        print(f"Project: {d['project']}")
     print(f"\nLINE ITEMS ({len(d.line_items)}):")
     for li in d.line_items:
         amt = ('$' + format(li['amount'], ',.2f')) if li.get('amount') is not None else ''
-        print(f"  {str(li.get('section') or '-'):10s}{str(li.get('description',''))[:40]:41s}"
-              f"{str(li.get('qty') or ''):>8s}{str(li.get('unit') or ''):>5s}{amt:>13s}  p{li.get('page','?')}")
+        sec = str(li.get('section') or '-')[:12]
+        desc = str(li.get('description', ''))[:42]
+        print(f"  {sec:12.12s}  {desc:42.42s} {str(li.get('qty') or ''):>8s}"
+              f"{str(li.get('unit') or ''):>5s}{amt:>13s}  p{li.get('page','?')}")
     if d.get('bid_total'):
         src = d.get('total_source', '')
         tag = "(summed from line items)" if src == "sum-of-line-items" else ""
@@ -63,8 +69,19 @@ def main():
         print(f"       risk: {e.get('risk','')}")
     if d.scope_gaps:
         print(f"\nSCOPE GAPS TO CONFIRM ({len(d.scope_gaps)}):")
-        for g in d.scope_gaps:
-            print(f"   - {g.get('missing','')} -- {g.get('why','')}")
+        for gp in d.scope_gaps:
+            print(f"   - {gp.get('missing','')} -- {gp.get('why','')}")
+
+    # trust-building footer
+    n_priced = sum(1 for li in d.line_items if isinstance(li.get('amount'), (int, float)))
+    tot = ('$' + format(d['bid_total'], ',.0f')) if d.get('bid_total') else "n/a"
+    rec = {True: "reconciles", False: f"off {d.get('total_delta_pct')}%", None: "—"}.get(d.get('total_reconciles'))
+    src = "scan→OCR" if d.get('_text_source') == 'ocr' else "text"
+    print("\n" + "-" * 74)
+    print(f"total {tot} ({d.get('total_source','?')}, {rec})  |  {len(d.line_items)} items "
+          f"({n_priced} priced)  |  {len(mm)} math flags  |  {len(d.exclusions)} exclusions  |  {src}")
+    print("every line cites its page + source_text. Next:  bidreader <pdf> --json"
+          "   |   bidreader level q1.pdf q2.pdf -o leveling.xlsx")
 
 
 if __name__ == "__main__":

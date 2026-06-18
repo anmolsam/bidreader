@@ -3,6 +3,14 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.9.4] - 2026-06-18
+### Changed (first-run polish, from live UX review)
+- Silenced the `pymupdf_layout` notice that printed on every run (table detection).
+- CLI never prints `None` — metadata shows real values or is hidden; cleaner column
+  spacing for section/description.
+- Added a trust-building footer per run: total + reconciliation status, item count
+  (priced), math-flag count, exclusions, text/OCR source, and next-command hints.
+
 ## [0.9.3] - 2026-06-18
 ### Added
 - `read(path, max_pages=N)` + `BID_MAX_PAGES` env — cap very large multi-hundred-page

@@ -44,8 +44,11 @@ def _tables_text(page):
     """Detected tables rendered as pipe-aligned rows, so the model can map the
     dollar columns (unit price / amount) to the right row — plain text extraction
     flattens columns and loses that association."""
+    import io, contextlib
     try:
-        tabs = page.find_tables()
+        # find_tables() prints a "Consider using pymupdf_layout" notice — silence it
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            tabs = page.find_tables()
     except Exception:
         return ""
     out = []
