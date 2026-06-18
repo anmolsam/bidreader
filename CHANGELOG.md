@@ -3,6 +3,13 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.9.3] - 2026-06-18
+### Added
+- `read(path, max_pages=N)` + `BID_MAX_PAGES` env — cap very large multi-hundred-page
+  docs (e.g. DOT bid-tabs) to first N pages; result flags `_truncated_pages`/`_pages_read`.
+- `BID_NO_TABLES=1` env — skip per-page table detection for fast batch evaluation
+  (table detection stays ON by default for normal use).
+
 ## [0.9.2] - 2026-06-17
 ### Added
 - **Table-aware extraction.** Each page's detected tables (PyMuPDF `find_tables`)

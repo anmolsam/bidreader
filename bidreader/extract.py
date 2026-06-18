@@ -61,13 +61,16 @@ def _tables_text(page):
     return "\n".join(out)
 
 
-def _page_blocks(doc):
+def _page_blocks(doc, limit=0):
     out = []
     for i, p in enumerate(doc):
+        if limit and i >= limit:
+            break
         t = p.get_text().strip()
-        tbl = _tables_text(p)
-        if tbl:
-            t = (t + "\n\n" + tbl).strip()
+        if os.environ.get("BID_NO_TABLES") != "1":   # table detection on by default; off for fast batch
+            tbl = _tables_text(p)
+            if tbl:
+                t = (t + "\n\n" + tbl).strip()
         if t:
             out.append(f"[PAGE {i+1}]\n{t}")
     return out
@@ -276,8 +279,11 @@ def _merge(parts):
     return out
 
 
-def read(path: str, ocr: str = "auto") -> Doc:
+def read(path: str, ocr: str = "auto", max_pages: int = 0) -> Doc:
     """Read a construction PDF into structured, page-cited data.
+
+    max_pages: if >0, only the first N pages are read (guards against very large
+    multi-hundred-page docs; result flags `_truncated_pages`).
 
     Large multi-page estimates are chunked by page and merged, so the model's
     JSON output never truncates.
@@ -287,7 +293,10 @@ def read(path: str, ocr: str = "auto") -> Doc:
     """
     from . import ocr as _ocr
     doc = fitz.open(path)
-    blocks = _page_blocks(doc)
+    env_cap = int(os.environ.get("BID_MAX_PAGES", "0"))
+    cap = max_pages or env_cap
+    truncated = bool(cap and doc.page_count > cap)
+    blocks = _page_blocks(doc, limit=cap)
     source = "text-layer"
     scanned = sum(len(b) for b in blocks) < 40
     if (ocr == "always") or (scanned and ocr == "auto"):
@@ -312,6 +321,8 @@ def read(path: str, ocr: str = "auto") -> Doc:
     data = validate(_merge(parts))
     data["_source"] = path.split("/")[-1]
     data["_pages"] = doc.page_count
+    data["_pages_read"] = cap if truncated else doc.page_count
+    data["_truncated_pages"] = truncated
     data["_chunks"] = len(chunks)
     data["_chunks_failed"] = failed
     data["_text_source"] = source
