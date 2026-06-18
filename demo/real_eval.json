@@ -10,7 +10,8 @@
     "stated_total": 17494401.0,
     "total_match": true,
     "math_flags": 0,
-    "note": "Buckley Project Cost detailed general construction estimate with CSI line items, unit costs, and printed totals (2500+ dollar amounts)"
+    "note": "Buckley Project Cost detailed general construction estimate with CSI line items, unit costs, and printed totals (2500+ dollar amounts)",
+    "category": "reconciled"
   },
   {
     "url": "https://constructiontakeoffservices.com/wp-content/uploads/2025/02/residential-estimate-sample-addition-and-renovation.pdf",
@@ -23,7 +24,8 @@
     "stated_total": 305374.0,
     "total_match": true,
     "math_flags": 9,
-    "note": "Construction Takeoff Services residential addition/renovation estimate, line items + quantities + costs + total"
+    "note": "Construction Takeoff Services residential addition/renovation estimate, line items + quantities + costs + total",
+    "category": "reconciled"
   },
   {
     "url": "https://federalestimating.com/wp-content/uploads/2025/12/general-contractor-sample.pdf",
@@ -36,7 +38,8 @@
     "stated_total": 961.0,
     "total_match": false,
     "math_flags": 0,
-    "note": "Federal Estimating general contractor sample estimate, detailed CSI divisions with costs and totals"
+    "note": "Federal Estimating general contractor sample estimate, detailed CSI divisions with costs and totals",
+    "category": "no grand-total emitted (items extracted, no total line)"
   },
   {
     "url": "https://veracityestimating.com/wp-content/uploads/2025/03/Sixth-Story-Multi-Family-Building-Estimate-Sample.pdf",
@@ -49,7 +52,8 @@
     "stated_total": 6502553.0,
     "total_match": true,
     "math_flags": 2,
-    "note": "Veracity Estimating multi-family (6-story) building estimate, very detailed line items, unit costs, trade totals"
+    "note": "Veracity Estimating multi-family (6-story) building estimate, very detailed line items, unit costs, trade totals",
+    "category": "reconciled"
   },
   {
     "url": "https://constructiontakeoffservices.com/wp-content/uploads/2025/02/Sitework-estimate-sample-veracity-estimating-2.pdf",
@@ -62,7 +66,8 @@
     "stated_total": 453765.0,
     "total_match": true,
     "math_flags": 6,
-    "note": "Veracity/CTS sitework estimate sample, line items with quantities and costs (text + many table images)"
+    "note": "Veracity/CTS sitework estimate sample, line items with quantities and costs (text + many table images)",
+    "category": "reconciled"
   },
   {
     "url": "https://bidsestimating.com/wp-content/uploads/2025/08/Bids-Estimating-Special-Contructions-sample.pdf",
@@ -75,7 +80,8 @@
     "stated_total": 477050.0,
     "total_match": false,
     "math_flags": 0,
-    "note": "Bids Estimating special constructions sample estimate with line items, costs and totals"
+    "note": "Bids Estimating special constructions sample estimate with line items, costs and totals",
+    "category": "TRUE product total mismatch"
   },
   {
     "url": "https://biddingestimating.com/storage/2022/05/6.-MEP-Format.pdf",
@@ -88,7 +94,8 @@
     "stated_total": 26000.0,
     "total_match": false,
     "math_flags": 0,
-    "note": "MEP (mechanical/electrical/plumbing) estimate format with line items, quantities, unit costs and totals"
+    "note": "MEP (mechanical/electrical/plumbing) estimate format with line items, quantities, unit costs and totals",
+    "category": "no grand-total emitted (items extracted, no total line)"
   },
   {
     "url": "https://biddingestimating.com/storage/2022/05/7.-Plumbing-Format.pdf",
@@ -101,7 +108,8 @@
     "stated_total": 22000.0,
     "total_match": false,
     "math_flags": 0,
-    "note": "Plumbing trade estimate format with line items, quantities, unit costs and totals"
+    "note": "Plumbing trade estimate format with line items, quantities, unit costs and totals",
+    "category": "no grand-total emitted (items extracted, no total line)"
   },
   {
     "url": "https://theaceservices.com/wp-content/uploads/2025/03/Estimate-For-901-RENALDI-PLAN1.pdf",
@@ -114,7 +122,8 @@
     "stated_total": 29219.0,
     "total_match": false,
     "math_flags": 13,
-    "note": "ACE Services residential estimate (901 Renaldi), itemized costs with totals (text + many embedded plan images)"
+    "note": "ACE Services residential estimate (901 Renaldi), itemized costs with totals (text + many embedded plan images)",
+    "category": "evaluator: printed-total heuristic likely wrong"
   },
   {
     "url": "https://www.ganarpro.com/wp-content/uploads/2024/06/schedule-of-values-sample-sov-on-aia-documentg703.1-1-1.pdf",
@@ -127,7 +136,8 @@
     "stated_total": 85000.0,
     "total_match": true,
     "math_flags": 0,
-    "note": "Schedule of Values sample on AIA G703 continuation sheet, line items with scheduled values"
+    "note": "Schedule of Values sample on AIA G703 continuation sheet, line items with scheduled values",
+    "category": "reconciled"
   },
   {
     "url": "https://www.etsu.edu/facilities/documents/01_29_73_schedule_of_values_2018-05_new.pdf",
@@ -140,7 +150,8 @@
     "stated_total": null,
     "total_match": false,
     "math_flags": 0,
-    "note": "East Tennessee State University facilities schedule of values form, line item values (thin, single page)"
+    "note": "East Tennessee State University facilities schedule of values form, line item values (thin, single page)",
+    "category": "N/A (no pricing extracted)"
   },
   {
     "url": "https://resources.finalsite.net/images/v1704212336/ccsd15net/elzdwul5b57klemjvhdf/BID-ARCON-Phase-2-BID_Tabulations_ARCON_Additions_and_Renovations_at_Multiple_Schools_Phase_2.pdf",
@@ -153,7 +164,8 @@
     "stated_total": null,
     "total_match": false,
     "math_flags": 0,
-    "note": "CCSD15 ARCON Phase 2 school district bid tabulation (additions/renovations at multiple schools) - SCANNED image PDF, no extractable text"
+    "note": "CCSD15 ARCON Phase 2 school district bid tabulation (additions/renovations at multiple schools) - SCANNED image PDF, no extractable text",
+    "category": "no grand-total emitted (items extracted, no total line)"
   },
   {
     "url": "https://estimations.us/wp-content/uploads/2026/01/Residential-Sample-01.pdf",
@@ -166,7 +178,8 @@
     "stated_total": 2118924.0,
     "total_match": true,
     "math_flags": 9,
-    "note": "Estimations.us residential sample estimate, full CSI divisions with qty/wastage/unit cost/total item cost/trade totals - very detailed"
+    "note": "Estimations.us residential sample estimate, full CSI divisions with qty/wastage/unit cost/total item cost/trade totals - very detailed",
+    "category": "reconciled"
   },
   {
     "url": "https://theaceservices.com/wp-content/uploads/2025/03/1022-03.pdf",
@@ -179,6 +192,7 @@
     "stated_total": 19221.0,
     "total_match": false,
     "math_flags": 1,
-    "note": "ACE Services project estimate (1022), itemized line items with costs and totals"
+    "note": "ACE Services project estimate (1022), itemized line items with costs and totals",
+    "category": "evaluator: printed-total heuristic likely wrong"
   }
 ]

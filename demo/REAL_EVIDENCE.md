@@ -1,6 +1,13 @@
 # BidReader — Real-document evaluation
 
-BidReader run on **14 real, publicly-published** construction bid/estimate PDFs (estimating-firm samples, government bid docs). The PDFs are **not redistributed** (copyright) — each row cites its source URL; re-download to verify.
+BidReader run on **14 real, publicly-published, estimate-class** construction PDFs
+(estimating-firm samples, GC estimates, schedules of values). The PDFs are **not
+redistributed** (copyright) — each row cites its source URL; re-download to verify.
+
+> Scope note: this covers **estimate-class** docs. 6 large multi-bidder government
+> DOT unit-price *bid-tabulation* PDFs (110–121 pp) are a **separate document class**
+> and were excluded — a full-20 live run is LLM-throughput-bound and did not complete.
+> Claims here are about estimate-class bids, not all construction bid documents.
 
 **Objective check:** does BidReader's extracted grand total reconcile (±2%) with the total the document itself prints? That ground truth lives in each doc, so no manual labeling is needed. (Full line-item/exclusion ground truth would need an estimator; this measures real-world total-reconciliation + ingestion robustness.)
 
@@ -34,21 +41,31 @@ BidReader run on **14 real, publicly-published** construction bid/estimate PDFs 
 
 _Real third-party documents (cited, not redistributed). Printed-total reconciliation is an objective real-world signal; it is not a substitute for estimator-labeled line-item ground truth. Outputs are proposals to verify._
 
-## Reconciliation failure audit (what "6/14" actually means)
+## Failure audit (machine-derived from real_eval.json)
 
-The blunt `6/14` mixes three different things. Audited per-doc, the breakdown is:
+Categories below are computed deterministically by `demo/audit.py` from the committed `real_eval.json` — not hand-asserted. Reproduce: `python demo/audit.py`.
 
-| category | count | what it is |
-|---|---|---|
-| ✅ **Reconciled exactly** | 6 | extracted grand total == the document's printed total |
-| **Evaluator heuristic grabbed wrong $** | 2 | extraction fine; this eval's `printed_total()` regex picked a subtotal/wrong figure (`16_ace`, `25_ace`). **Not a product failure.** |
-| **No single grand total in source** | 4 | line-item-only estimates/tabs (`04_federal` 885 items, `14_mep` 582, `15_plumbing` 243, `21_ccsd15` scanned 44) — items extracted fine; the doc prints no one grand-total line, so `bid_total` is null |
-| **N/A** | 1 | `20_etsu` is a 1-page SOV with nothing to price |
-| **True BidReader total error** | **1** | `08_bids`: $426,166 vs $477,050 (~11% off — investigate) |
+| category | count |
+|---|---|
+| reconciled | 6 |
+| no grand-total emitted (items extracted, no total line) | 4 |
+| evaluator: printed-total heuristic likely wrong | 2 |
+| TRUE product total mismatch | 1 |
+| N/A (no pricing extracted) | 1 |
 
-So the honest headline is **not** "57% wrong":
-- **14/14 parsed, 0 crashes, 4,196 line items extracted.**
-- Of docs with a detectable single grand total: **6 reconciled, 1 true product miss.**
-- **2** misses are this evaluator's heuristic; **4** are docs with no grand-total line; **1** N/A.
-
-**The real product gap is grand-total *detection*** (sum the line items / find the summary line) — not extraction, which works on real, varied bids. Multi-bidder DOT unit-price tabs are a separate doc class (excluded, noted). This is the honest real-world state — not the synthetic set's 100%.
+| doc | extracted total | printed total | category |
+|---|---|---|---|
+| Sample-General-Construction-Estima | $17,494,401 | $17,494,401 | reconciled |
+| residential-estimate-sample-additi | $305,374 | $305,374 | reconciled |
+| general-contractor-sample.pdf | $0 | $961 | no grand-total emitted (items extracted, no total line) |
+| Sixth-Story-Multi-Family-Building- | $6,502,553 | $6,502,553 | reconciled |
+| Sitework-estimate-sample-veracity- | $453,765 | $453,765 | reconciled |
+| Bids-Estimating-Special-Contructio | $426,166 | $477,050 | TRUE product total mismatch |
+| 6.-MEP-Format.pdf | $0 | $26,000 | no grand-total emitted (items extracted, no total line) |
+| 7.-Plumbing-Format.pdf | $0 | $22,000 | no grand-total emitted (items extracted, no total line) |
+| Estimate-For-901-RENALDI-PLAN1.pdf | $102,576 | $29,219 | evaluator: printed-total heuristic likely wrong |
+| schedule-of-values-sample-sov-on-a | $85,000 | $85,000 | reconciled |
+| 01_29_73_schedule_of_values_2018-0 | — | — | N/A (no pricing extracted) |
+| BID-ARCON-Phase-2-BID_Tabulations_ | — | — | no grand-total emitted (items extracted, no total line) |
+| Residential-Sample-01.pdf | $2,118,924 | $2,118,924 | reconciled |
+| 1022-03.pdf | $51,513 | $19,221 | evaluator: printed-total heuristic likely wrong |
