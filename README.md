@@ -19,9 +19,11 @@ Every line item carries its **page**, the **exact source text** it came from, an
 > *"Manually typing numbers from a PDF into Excel because the formatting is a crime scene… hunting for the one line where a sub quietly excluded 'trash removal' in size-8 font."*
 > — r/Construction, **498 upvotes** ([source](https://www.reddit.com/r/Construction/comments/1pq34ur/))
 
-The construction-AI gold rush is all chasing the same crowded, resisted thing — autonomous *takeoff*. The **loudest unmet pain** of estimators is upstream and downstream of it: wrangling crime-scene PDFs into clean data, and **catching what subcontractors quietly excluded** before it costs six figures on the job.
+Most construction-AI effort chases autonomous *takeoff*. BidReader does something narrower and more concrete: it reads subcontractor **quotes / estimates** (PDF) and helps you **level competing bids** — surfacing the scope a sub quietly excluded before it costs six figures on the job.
 
-No permissively-licensed library did this. **BidReader is that primitive** — MIT, `pip install`, runs on free LLMs, and callable from any AI agent over MCP.
+It's an open-source **bid-leveling assistant**, not an autopilot: it proposes, cites its source, and you verify. MIT, `pip install`, runs on free LLMs (or fully local via Ollama), and callable from an AI agent over MCP.
+
+> **Scope, honestly:** built and tested on **estimate-class** docs (sub quotes, GC estimates, schedules of values). It's an assistant for a human estimator — line-item extraction can be incomplete (the tool flags when it is), and inferred scope-gaps are *prompts to check*, not contractual findings. Not built for multi-bidder DOT unit-price bid-tabs. See [`demo/REAL_EVIDENCE.md`](demo/REAL_EVIDENCE.md) for honest real-document results.
 
 ## Quickstart (copy-paste, ~30 seconds)
 
@@ -165,7 +167,7 @@ A full write-up (problem, market data, prior-art gap, method, results) is in **[
 - **Loudest, most-shared pain** in construction-estimating communities (the 498-upvote thread above; more cited in the paper).
 - **It works *today*** — document extraction is LLM-native, unlike floor-plan symbol detection (academic SOTA tops out ~83% mAP).
 - **Empty slot** — `bidreader`, `blueprint-parser`, `pytakeoff` were all unclaimed on PyPI; the only adjacent tools are AGPL/non-commercial or abandoned toys.
-- **Broadest base** — every estimator *and* every construction-AI builder needs document extraction. The library is the dependency; the MCP server is the agent-era surface.
+- **Concrete wedge** — not "do everything," just the bid-leveling moment estimators actually feel on bid day. Whether that's worth a daily tool is exactly what this open release is here to find out — feedback from real estimators welcome.
 
 ## Roadmap
 
