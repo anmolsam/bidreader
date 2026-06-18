@@ -19,7 +19,7 @@ Every line item carries its **page**, the **exact source text** it came from, an
 > *"Manually typing numbers from a PDF into Excel because the formatting is a crime scene… hunting for the one line where a sub quietly excluded 'trash removal' in size-8 font."*
 > — r/Construction, **498 upvotes** ([source](https://www.reddit.com/r/Construction/comments/1pq34ur/))
 
-Most construction-AI effort chases autonomous *takeoff*. BidReader does something narrower and more concrete: it reads subcontractor **quotes / estimates** (PDF) and helps you **level competing bids** — surfacing the scope a sub quietly excluded before it costs six figures on the job.
+Most construction-AI effort chases autonomous *takeoff*. BidReader does something narrower and more concrete: it reads subcontractor **quotes / estimates** (PDF) and helps you **level competing bids** — surfacing the scope a sub quietly excluded — so you catch it during leveling, not after award.
 
 It's an open-source **bid-leveling assistant**, not an autopilot: it proposes, cites its source, and you verify. MIT, `pip install`, runs on free LLMs (or fully local via Ollama), and callable from an AI agent over MCP.
 
@@ -167,7 +167,7 @@ A full write-up (problem, market data, prior-art gap, method, results) is in **[
 - **Loudest, most-shared pain** in construction-estimating communities (the 498-upvote thread above; more cited in the paper).
 - **It works *today*** — document extraction is LLM-native, unlike floor-plan symbol detection (academic SOTA tops out ~83% mAP).
 - **Empty slot** — `bidreader`, `blueprint-parser`, `pytakeoff` were all unclaimed on PyPI; the only adjacent tools are AGPL/non-commercial or abandoned toys.
-- **Concrete wedge** — not "do everything," just the bid-leveling moment estimators actually feel on bid day. Whether that's worth a daily tool is exactly what this open release is here to find out — feedback from real estimators welcome.
+- **Concrete wedge** — not "do everything," just the bid-leveling step on bid day. Whether that is genuinely useful is unproven — this open release exists to find out. Feedback from real estimators welcome.
 
 ## Roadmap
 
