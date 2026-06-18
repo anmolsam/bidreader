@@ -74,12 +74,22 @@ def main():
 
     # trust-building footer
     n_priced = sum(1 for li in d.line_items if isinstance(li.get('amount'), (int, float)))
-    tot = ('$' + format(d['bid_total'], ',.0f')) if d.get('bid_total') else "n/a"
-    rec = {True: "reconciles", False: f"off {d.get('total_delta_pct')}%", None: "—"}.get(d.get('total_reconciles'))
+    bt, ct = d.get('bid_total'), d.get('computed_total')
+    if not bt:
+        total_line = "total: n/a (no priced grand total found in document)"
+    elif d.get('total_source') == 'sum-of-line-items':
+        total_line = f"total ${bt:,.0f}  (summed from line items — document prints no single grand total)"
+    elif d.get('total_reconciles') is False and isinstance(ct, (int, float)):
+        pct = round(ct / bt * 100) if bt else 0
+        total_line = (f"printed total ${bt:,.0f}  |  extracted line items sum to ${ct:,.0f} "
+                      f"({pct}% of printed) — line-item extraction looks INCOMPLETE, review before relying on it")
+    else:
+        total_line = f"total ${bt:,.0f}  (printed grand total; extracted line items reconcile ✓)"
     src = "scan→OCR" if d.get('_text_source') == 'ocr' else "text"
     print("\n" + "-" * 74)
-    print(f"total {tot} ({d.get('total_source','?')}, {rec})  |  {len(d.line_items)} items "
-          f"({n_priced} priced)  |  {len(mm)} math flags  |  {len(d.exclusions)} exclusions  |  {src}")
+    print(total_line)
+    print(f"{len(d.line_items)} items ({n_priced} priced)  |  {len(mm)} math flags  |  "
+          f"{len(d.exclusions)} exclusions  |  source: {src}")
     print("every line cites its page + source_text. Next:  bidreader <pdf> --json"
           "   |   bidreader level q1.pdf q2.pdf -o leveling.xlsx")
 

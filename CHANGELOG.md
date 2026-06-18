@@ -3,6 +3,14 @@
 All notable changes to BidReader. Format: [Keep a Changelog](https://keepachangelog.com/);
 versioning: [SemVer](https://semver.org/).
 
+## [0.9.5] - 2026-06-18
+### Changed
+- Reworded the reconciliation footer (Codex UX review): instead of a blunt
+  "off 70.4%" (reads as 'the tool is wrong'), it now says the printed total was
+  found and the extracted line items sum to N% of it — "line-item extraction looks
+  INCOMPLETE, review" — making clear the document total is correct and it's the
+  item capture that's partial. Builds trust instead of looking mathematically wrong.
+
 ## [0.9.4] - 2026-06-18
 ### Changed (first-run polish, from live UX review)
 - Silenced the `pymupdf_layout` notice that printed on every run (table detection).
